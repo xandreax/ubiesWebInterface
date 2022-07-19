@@ -1,0 +1,8 @@
+button#btn_confirm_add_team, btn_decline_add_team{
+    margin: 15px;
+}
+
+label, input {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}

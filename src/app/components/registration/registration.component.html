@@ -1,0 +1,40 @@
+<div id="registration_component_container">
+    <div id="start_registration_container" *ngIf="!startRegistration">
+        <app-metadata-form
+                (submitEvent)="saveAndStart($event)"
+                [buttonSubmitString]="buttonSubmitString">
+        </app-metadata-form>
+    </div>
+    <div id="registration_container" *ngIf="startRegistration">
+        <alert *ngIf="startRegistration" type="success" [dismissOnTimeout]="5000">
+            <strong>Informazioni salvate!</strong> La registrazione è iniziata
+        </alert>
+        <label id="label_registration_bar">Registrazione completa in corso...</label>
+        <progressbar id="bar_registration_inprogress" [max]="200" [value]="200" type="danger" [striped]="true"
+                     [animate]="true"></progressbar>
+
+        <button id="btn_stop_registration" type="button" class="btn btn-danger" (click)="stopRegistration()"><i
+                class="bi bi-square-fill"></i> Stop registrazione
+        </button>
+        <!--<div id="quarters_commands_container">&lt;!&ndash;*ngIf="registration.type_registration == 'Match'"&ndash;&gt;
+            <h1>Se vuoi suddividere la registrazioni nelle quattro fasi del match utilizza i comandi sottostanti.</h1>
+            <h2>FASI DEL MATCH: </h2>
+            <div class="quarter">
+                <h3 class="quarter">Primo quarto: </h3>
+                <app-quarter></app-quarter>
+            </div>
+            <div class="quarter">
+                <h3 class="quarter">Secondo quarto: </h3>
+                <app-quarter></app-quarter>
+            </div>
+            <div class="quarter">
+                <h3 class="quarter">Terzo quarto: </h3>
+                <app-quarter></app-quarter>
+            </div>
+            <div class="quarter">
+                <h3 class="quarter">Quarto quarto: </h3>
+                <app-quarter></app-quarter>
+            </div>
+        </div>-->
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="modal-body text-center">
+    <form [formGroup]="playerForm" id="form_player">
+        <label id="label_input_id_tag" for="input_id_tag">Id Tag: </label>
+        <input
+                type="number"
+                placeholder="Id Tag"
+                class="form-control text-center"
+                id="input_id_tag"
+                formControlName="id_tag"
+                required
+        />
+        <label id="label_input_name_player" for="input_name_player">Nome
+            Giocatore: </label>
+        <input
+                type="text"
+                placeholder="Nome Giocatore"
+                class="form-control text-center"
+                id="input_name_player"
+                formControlName="player_name"
+                required
+        />
+        <label id="label_input_kit_number" for="input_kit_number">Numero di
+            maglia: </label>
+        <input
+                type="number"
+                placeholder="Numero di maglia"
+                class="form-control text-center"
+                id="input_kit_number"
+                formControlName="kit_number"
+        />
+    </form>
+    <button id="btn_decline_add_player" class="btn btn-primary" (click)="closeModal()">
+        Annulla
+    </button>
+    <button id="btn_confirm_add_player" type="button" class="btn btn-primary" (click)="confirmAddPlayer(playerForm)">
+        Salva giocatore
+    </button>
+</div>

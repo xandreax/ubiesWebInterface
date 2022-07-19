@@ -1,0 +1,42 @@
+<mat-card>
+    <mat-card-title>
+        <img src="/assets/images/basketball-jersey-clipart.png" id="kit_basket"
+             [style.background-color]="team.colour" alt="kit_color">
+        {{team.name}}
+        <button type="button" class="btn btn-primary" id="modifyTeamBtn" *ngIf="team.name != 'Giocatori senza squadra'"
+                (click)="modifyTeamModal(team)">
+            <i class="bi bi-pencil-square"></i>modifica
+        </button>
+    </mat-card-title>
+    <mat-card-header>
+        Giocatori:
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngIf="team.players.length === 0">Nessun giocatore inserito</div>
+        <div *ngFor="let player of team.players">
+            <div class="row" id="row_player">
+                <div class="col-sm">{{player.name}}</div>
+                <div class="col-sm">tag: {{player.id_tag}}</div>
+                <div class="col-sm">maglia: {{player.kit_number}}</div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-primary" id="btn_modify_player">
+                        <i class="bi bi-pencil-fill" (click)="modifyPlayerModal(team, player)"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btn_delete_player"
+                            (click)="deletePlayerModal(team, player)"><i
+                            class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button *ngIf="team.name != 'Giocatori senza squadra'"  id="btn_remove_team" class="btn btn-danger" (click)="deleteTeamModal(team)">Rimuovi
+            Team
+        </button>
+        <button id="btn_add_player" class="btn btn-primary" (click)="addPlayerModal(team)">
+            <i class="bi bi-plus-circle"></i>
+            Aggiungi giocatore
+        </button>
+    </mat-card-actions>
+</mat-card>

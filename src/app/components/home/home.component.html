@@ -1,0 +1,50 @@
+<div id="home">
+    <div id="header_list_matches_container">
+        <h1 id="label_list_matches">REGISTRAZIONI SALVATE:</h1>
+        <div id="btn_go_to_registration_holder">
+            <button id="btn_go_to_registration" type="button" class="btn btn-primary"
+                    (click)="goToRegistration()">
+                NUOVA REGISTRAZIONE
+            </button>
+        </div>
+    </div>
+    <ul class="list-group" id="list_macthes">
+        <div class="content-wrapper">
+            <li class="list-group-item" id="list_registrations_label">
+                <div class="row">
+                    <div class="col-sm">REGISTRAZIONE</div>
+                    <div class="col-sm">TIPOLOGIA</div>
+                    <div class="col-sm">DATA</div>
+                    <div class="col-sm">DURATA</div>
+                    <div class="col-sm"></div>
+                </div>
+            </li>
+            <li
+                    class="list-group-item"
+                    id="match_list_item"
+                    *ngFor="let match of returnedMatches">
+                <div class="row">
+                    <div class="col-sm">{{ match.name_registration }}</div>
+                    <div class="col-sm">{{ match.type_registration }}</div>
+                    <div class="col-sm">{{ match.timestamp | date: 'yyyy-MM-dd' }}</div>
+                    <div class="col-sm">{{getLengthPeriodOfRegistration(match)}}</div>
+                    <div class="col-sm">
+                        <button type="button" class="btn btn-primary" id="playMatchBtn" [routerLink]="['/replay', match.registration_id]"><i
+                                class="bi bi-play-fill"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary" id="renameMatchBtn" [routerLink]="['/modify', match.registration_id]">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger" id="deleteMatchBtn"
+                                (click)="deleteMatch(match)"><i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        </div>
+        <pagination class="pagination_matches"
+                [totalItems]="matches.length"
+                [itemsPerPage]="10"
+                (pageChanged)="pageChanged($event)"></pagination>
+    </ul>
+</div>

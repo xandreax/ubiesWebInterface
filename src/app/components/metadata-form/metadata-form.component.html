@@ -1,0 +1,80 @@
+<div id="metadata-container">
+    <div id="section1_container">
+        <div id="forms_container">
+            <form [formGroup]="registrationForm" id="form_metadata_registration">
+                <label id="label_input_name_registration" for="input_name_registration">Nome della
+                    registrazione:</label>
+                <input
+                        type="text"
+                        placeholder="Nome Registrazione"
+                        class="form-control text-center"
+                        id="input_name_registration"
+                        formControlName="name"
+                        required
+                        [ngModel]="name_registration"/>
+                <label id="label_select_type_registration" for="select_type_registration">Modalità
+                    registrazione:</label>
+                <ngx-select
+                        id="select_type_registration"
+                        [formControl]="typeControl"
+                        [items]="['Match', 'Allenamento']"
+                        placeholder="Nessuna modalità selezionata"
+                        optionTextField='text'
+                        [ngModel]="type_registration">
+                </ngx-select>
+                <div id="insert_dimension_court_container">
+                    <div id="insert_length_court_container">
+                        <label id="label_input_length_court" for="input_length_court">Lunghezza campo lato
+                            corto(cm):</label>
+                        <input
+                                type="number"
+                                placeholder="Lunghezza lato corto"
+                                class="form-control text-center"
+                                id="input_length_court"
+                                formControlName="length_court"
+                                required
+                                [ngModel]="length_court"/>
+                    </div>
+                    <div id="insert_width_court_container">
+                        <label id="label_input_width_court" for="input_width_court">Lunghezza campo lato
+                            lungo (cm):</label>
+                        <input
+                                type="number"
+                                placeholder="Lunghezza lato lungo"
+                                class="form-control text-center"
+                                id="input_width_court"
+                                formControlName="width_court"
+                                required
+                                [ngModel]="width_court"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <button id="btn_back_to_home" class="btn btn-primary" [routerLink]="'/home'"><i
+                class="bi bi-arrow-left-circle"></i>Torna alla Home
+        </button>
+        <button id="btn_save_registration" type="button" class="btn btn-primary"
+                (click)="submit()">{{buttonSubmitString}}
+        </button>
+        <div id="team_container">
+            <button id="btn_add_team" type="button" class="btn btn-primary"
+                    (click)="addTeamModal()"><i class="bi bi-plus-circle"></i>
+                Aggiungi Team
+            </button>
+        </div>
+    </div>
+    <div id="section2_container">
+        <div *ngFor="let team of teams" id="card_team_container">
+            <app-card-team [team]="team"
+                           [teams]="teams"
+                           (deleteTeamEvent)="deleteTeam($event)"
+                           (updateTeamEvent)="updateTeam($event)"
+            ></app-card-team>
+        </div>
+        <mat-card *ngIf="teams.length === 0" id="card_no_team">
+            <mat-card-title>
+                Nessun Team inserito
+            </mat-card-title>
+        </mat-card>
+    </div>
+</div>

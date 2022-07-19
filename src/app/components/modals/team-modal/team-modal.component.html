@@ -1,0 +1,30 @@
+<div class="modal-body text-center">
+    <form [formGroup]="teamForm" id="form_modify_team">
+        <label id="label_input_modify_team_name_team" for="input_modify_team_name_team">Nome
+            Team: </label>
+        <input
+                type="text"
+                placeholder="Nome Team"
+                class="form-control text-center"
+                id="input_modify_team_name_team"
+                formControlName="team_name"
+                required
+        />
+        <label id="label_input_modify_colour_team" for="input_modify_colour_team">Colore
+            Team: </label>
+        <input
+                type="color"
+                placeholder="Colore Team"
+                class="form-control text-center"
+                id="input_modify_colour_team"
+                formControlName="team_color"
+                required
+        />
+    </form>
+    <button id="btn_decline_add_team" class="btn btn-primary" (click)="closeModal()">
+        Annulla
+    </button>
+    <button id="btn_confirm_add_team" type="button" class="btn btn-primary"
+            (click)="confirmTeam(teamForm)">Salva Team
+    </button>
+</div>

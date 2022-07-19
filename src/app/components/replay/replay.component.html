@@ -1,0 +1,110 @@
+<div id="replay-match-container">
+    <div id="frontspace_replay">
+        <h1 id="title_match_replay">{{ metadata.name_registration }}</h1>
+    </div>
+    <div id="replay-container">
+        <div id="canvas-container">
+            <!--<div id="buttons_quarter_container" style="display: none">
+                &lt;!&ndash; insert if is a match &ndash;&gt;
+                <button class="btn btn-primary" id="btn_full_match" [disabled]="fullMatchDisabled"
+                        (click)="showQuarter('full')">Match intero
+                </button>
+                <button class="btn btn-primary" id="btn_first_quarter" [disabled]="firstQuarterDisabled"
+                        (click)="showQuarter('first')">Primo quarto
+                </button>
+                <button class="btn btn-primary" id="btn_second_quarter" [disabled]="secondQuarterDisabled"
+                        (click)="showQuarter('second')">Secondo quarto
+                </button>
+                <button class="btn btn-primary" id="btn_third_quarter" [disabled]="thirdQuarterDisabled"
+                        (click)="showQuarter('third')">Terzo quarto
+                </button>
+                <button class="btn btn-primary" id="btn_fourth_quarter" [disabled]="fourthQuarterDisabled"
+                        (click)="showQuarter('fourth')">Quarto quarto
+                </button>
+            </div>-->
+            <canvas id="basketball-court"></canvas>
+            <ngx-slider [(value)]="time_in_seconds"
+                        [options]="optionsSlider"
+                        (userChangeStart)="changeSliderStart()"
+                        (userChangeEnd)="changeSliderEnd($event)"
+                        id="time_slider"
+                        [ngStyle]="{'width': canvasWidth+'px'}">
+            </ngx-slider>
+            <div id="buttons_replay">
+                <button *ngIf="!playing && stopped" class="btn btn-primary" type="button" (click)="playMatch()"
+                        id="btn_play_match"><i
+                        class="bi bi-play-fill"></i>Play
+                </button>
+                <button *ngIf="!playing && paused && !stopped" class="btn btn-primary" type="button" (click)="back30()"
+                        id="btn_back_30s"><i
+                        class="bi bi-skip-backward-fill"></i>30 sec
+                </button>
+                <button *ngIf="!playing && paused && !stopped" class="btn btn-primary" type="button" (click)="back10()"
+                        id="btn_back_10s"><i
+                        class="bi bi-skip-backward-fill"></i>10 sec
+                </button>
+                <button *ngIf="!playing && paused && !stopped" class="btn btn-primary" type="button"
+                        (click)="resumeMatch()" id="btn_resume_match"><i
+                        class="bi bi-play-fill"></i>Riprendi
+                </button>
+                <button *ngIf="playing && !paused && !stopped" class="btn btn-primary" type="button"
+                        (click)="pauseMatch()" id="btn_pause_match"><i
+                        class="bi bi-pause-fill"></i>Pausa
+                </button>
+                <button *ngIf="!stopped" class="btn btn-primary" type="button" (click)="stopMatch()"
+                        id="btn_stop_match"><i
+                        class="bi bi-stop-fill"></i>Stop
+                </button>
+                <button *ngIf="!playing && paused && !stopped" class="btn btn-primary" type="button"
+                        (click)="forward10()" id="btn_forward_10s"><i
+                        class="bi bi-skip-forward-fill"></i>10 sec
+                </button>
+                <button *ngIf="!playing && paused && !stopped" class="btn btn-primary" type="button"
+                        (click)="forward30()"
+                        id="btn_forward_30s"><i
+                        class="bi bi-skip-forward-fill"></i>30 sec
+                </button>
+            </div>
+        </div>
+        <div id="court_and_teams_list_container">
+            <h2 id="court_title">Campo:</h2>
+            <div id="court_dimensions">
+                <div id="length_court">
+                    <p>Lunghezza lato corto: {{(metadata.length_court) / 100 | number: '2.1-1'}} m</p>
+                </div>
+                <div id="width_court">
+                    <p>Lunghezza lato lungo: {{(metadata.width_court) / 100 | number: '2.1-1'}} m</p>
+                </div>
+            </div>
+            <h2 id="teams_title">Squadre:</h2>
+            <div id="teams_replay">
+                <div *ngFor="let team of teams">
+                    <mat-card>
+                        <mat-card-title>
+                            <img src="/assets/images/basketball-jersey-clipart.png" id="kit_basket"
+                                 [style.background-color]="team.colour" alt="kit_color">
+                            {{team.name}}
+                        </mat-card-title>
+                        <mat-card-header>
+                            Giocatori:
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngIf="team.players.length === 0">Nessun giocatore inserito</div>
+                            <div *ngFor="let player of team.players">
+                                <div class="row"
+                                     [ngStyle]="{'background-color': player.isSelected ? '#97c5d4' : '#ffffff'}">
+                                    <div class="col-sm">{{player.name}}</div>
+                                    <div class="col-sm">tag: {{player.id_tag}}</div>
+                                    <div class="col-sm">maglia: {{player.kit_number}}</div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <button id="btn_back_to_home" class="btn btn-primary" (click)="back_to_home()"><i
+                    class="bi bi-arrow-left-circle"></i> Torna alla Home
+            </button>
+        </div>
+    </div>
+</div>

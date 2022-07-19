@@ -1,0 +1,15 @@
+<div id="quarter">
+    <div id="before_quarter_registration" *ngIf="!quarterRegistration">
+        <button id="btn_start_registration_quarter" type="button" class="btn btn-primary" (click)="startRegistrationQuarter()"><i
+                class="bi bi-play-fill"></i> Start
+        </button>
+    </div>
+    <img class="mark_completed" src="assets/images/check.png" alt="registration completed">
+    <div id="quarter_registration" *ngIf="quarterRegistration">
+        <progressbar id="bar_registration_quarter" [max]="200" [value]="200" type="danger" [striped]="true"
+                     [animate]="true"></progressbar>
+        <button id="btn_stop_registration_quarter" type="button" class="btn btn-danger" (click)="stopRegistrationQuarter()"><i
+                class="bi bi-square-fill"></i> Stop
+        </button>
+    </div>
+</div>

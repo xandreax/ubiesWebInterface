@@ -1,0 +1,35 @@
+mat-card{
+    width: 550px;
+    border: solid 1px black ;
+}
+
+mat-card#card_no_team{
+    width: auto;
+}
+
+div#row_player{
+    margin: 5px;
+    align-items: center;
+}
+
+button#modifyTeamBtn, btn#modifyTeamBtn:focus {
+    outline: none;
+    box-shadow: none;
+    position: absolute;
+    right:15px;
+    top:5px;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    color: #52667d;
+    padding:0;
+}
+
+button#btn_modify_player, #btn_delete_player{
+    padding:4px;
+    margin:3px 5px;
+}
+
+button#btn_remove_team, #btn_add_player{
+    margin-left: 10px;
+    margin-right: 10px;
+}

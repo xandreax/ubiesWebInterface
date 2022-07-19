@@ -1,0 +1,22 @@
+img.mark_completed{
+    height: 45px;
+    width: 45px;
+    display: none;
+}
+
+div#quarter{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+button#btn_start_registration_quarter, #btn_stop_registration_quarter{
+    margin: 0 40px 15px;
+}
+
+progressbar#bar_registration_quarter{
+    margin: 0 40px 15px;
+    width: 100px;
+}
