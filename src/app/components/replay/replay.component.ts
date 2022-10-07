@@ -11,6 +11,8 @@ import {AnchorsPositions} from "../../models/court/dimensions_court";
 import {Court} from "../../models/court/court.model";
 import {Point} from "../../models/cartesian/point.model";
 import {ChangeContext, LabelType, Options} from "@angular-slider/ngx-slider";
+import {InfoModalComponent} from "../modals/info-modal/info-modal.component";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 const ws_url = 'ws://localhost:8081/replay';
 
@@ -49,6 +51,7 @@ export class ReplayComponent implements OnInit {
     public display_minute: number = 0;
     public display_hour: number = 0;
     public optionsSlider!: Options;
+    modalRef!: BsModalRef;
     /*firstQuarterDisabled: boolean = false;
     secondQuarterDisabled: boolean = false;
     thirdQuarterDisabled: boolean = false;
@@ -57,7 +60,11 @@ export class ReplayComponent implements OnInit {
     private _event: any;*/
 
     constructor(
-        private route: ActivatedRoute, private metadataService: MetadataService, private replayService: ReplayService, private router: Router
+        private route: ActivatedRoute,
+        private metadataService: MetadataService,
+        private replayService: ReplayService,
+        private router: Router,
+        private modalService: BsModalService
     ) {
     }
 
@@ -457,6 +464,14 @@ export class ReplayComponent implements OnInit {
         let sliderTime = initDate.getTime() + changeContext.value*1000;
         console.log(sliderTime);
         this.ws.send(sliderTime.toString());
+    }
+
+    getInfo() {
+        const metadata = this.metadata;
+        const config = {
+            initialState: {metadata},
+        };
+        this.modalRef = this.modalService.show(InfoModalComponent, config);
     }
 }
 

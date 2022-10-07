@@ -25,6 +25,7 @@ import { QuarterComponent } from './components/registration/quarter/quarter.comp
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { CardTeamComponent } from './components/card-team/card-team.component';
 import { MetadataFormComponent } from './components/metadata-form/metadata-form.component';
+import { InfoModalComponent } from './components/modals/info-modal/info-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MetadataFormComponent } from './components/metadata-form/metadata-form.
     QuarterComponent,
     CardTeamComponent,
     MetadataFormComponent,
+    InfoModalComponent,
   ],
     imports: [
         BrowserModule,

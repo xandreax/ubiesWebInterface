@@ -1,0 +1,19 @@
+<div class="modal-body text-center">
+    <div id="modal_message_info">
+        <p>
+            Tipo registrazione: {{metadata.type_registration}}
+        </p>
+        <p>
+            Larghezza campo: {{(metadata.length_court) / 100 | number: '2.1-1'}} m
+        </p>
+        <p>
+            Lunghezza campo: {{(metadata.width_court) / 100 | number: '2.1-1'}} m
+        </p>
+        <p>
+            Data: {{ metadata.timestamp | date: 'yyyy-MM-dd' }}
+        </p>
+    </div>
+    <button type="button" class="btn btn-primary" id="btn_ok_info"
+            (click)="close()">Chiudi
+    </button>
+</div>

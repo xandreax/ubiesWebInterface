@@ -64,10 +64,14 @@
                         id="btn_forward_30s"><i
                         class="bi bi-skip-forward-fill"></i>30 sec
                 </button>
+                <button  class="btn btn-primary" type="button" (click)="getInfo()"
+                        id="btn_info"><i
+                        class="bi bi-info-circle-fill"></i>Info
+                </button>
             </div>
         </div>
         <div id="court_and_teams_list_container">
-            <h2 id="court_title">Campo:</h2>
+            <!--<h2 id="court_title">Campo:</h2>
             <div id="court_dimensions">
                 <div id="length_court">
                     <p>Lunghezza lato corto: {{(metadata.length_court) / 100 | number: '2.1-1'}} m</p>
@@ -75,7 +79,7 @@
                 <div id="width_court">
                     <p>Lunghezza lato lungo: {{(metadata.width_court) / 100 | number: '2.1-1'}} m</p>
                 </div>
-            </div>
+            </div>-->
             <h2 id="teams_title">Squadre:</h2>
             <div id="teams_replay">
                 <div *ngFor="let team of teams">

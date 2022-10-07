@@ -57,7 +57,7 @@ canvas#basketball-court {
   border: 1px solid #cccccc;
 }
 
-button#btn_play_match, #btn_stop_match, #btn_resume_match, #btn_pause_match, #btn_back_10s, #btn_back_30s, #btn_forward_10s, #btn_forward_30s{
+button#btn_play_match, #btn_stop_match, #btn_resume_match, #btn_pause_match, #btn_back_10s, #btn_back_30s, #btn_forward_10s, #btn_forward_30s, #btn_info{
   margin: 15px;
 }
 
