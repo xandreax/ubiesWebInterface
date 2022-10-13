@@ -81,7 +81,10 @@ ngx-select{
     margin-bottom: 7px;
     width: 80%;
     align-self: center;
+    text-align-last: center;
     text-align: center;
+    -ms-text-align-last: center;
+    -moz-text-align-last: center;
 }
 
 button#btn_save_registration {

@@ -19,8 +19,8 @@
                         [formControl]="typeControl"
                         [items]="['Match', 'Allenamento']"
                         placeholder="Nessuna modalità selezionata"
-                        optionTextField='text'
-                        [ngModel]="type_registration">
+                        [ngModel]="type_registration"
+                        noResultsFound="Modalità non trovata">
                 </ngx-select>
                 <div id="insert_dimension_court_container">
                     <div id="insert_length_court_container">

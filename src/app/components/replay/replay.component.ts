@@ -52,6 +52,7 @@ export class ReplayComponent implements OnInit {
     public display_hour: number = 0;
     public optionsSlider!: Options;
     modalRef!: BsModalRef;
+
     /*firstQuarterDisabled: boolean = false;
     secondQuarterDisabled: boolean = false;
     thirdQuarterDisabled: boolean = false;
@@ -103,7 +104,7 @@ export class ReplayComponent implements OnInit {
                         getPointerColor: (): string => {
                             return '#52667d';
                         },
-                        translate: (value: number, label:LabelType): string => {
+                        translate: (value: number, label: LabelType): string => {
                             switch (label) {
                                 case LabelType.Ceil:
                                     return this.timeInSecondsToString(secs);
@@ -245,55 +246,72 @@ export class ReplayComponent implements OnInit {
 
     private generateCourt() {
         this.replayService.getConstellation(this.id).subscribe((response) => {
-                this.c = response;
-                let points = [];
-                points.push(this.c.constellation.A0, this.c.constellation.A1,
-                    this.c.constellation.A2, this.c.constellation.A3,
-                    this.c.constellation.A4, this.c.constellation.A5,
-                    this.c.constellation.A6, this.c.constellation.A7);
-                let dimensions = new AnchorsPositions(points);
-                this.court = new Court(dimensions);
-                let courtWidth: number, courtHeight: number;
-                if (window.innerWidth < 1800) {
-                    this.canvasWidth = window.innerWidth - 200;
-                } else {
-                    this.canvasWidth = (window.innerWidth / 100) * 60;
-                }
-                this.canvasHeight = this.canvasWidth / this.court.ratio;
-                // get data from metadata
-                if (this.metadata.width_court != null && this.metadata.length_court != null) {
-                    this.courtRealWidth = this.metadata.width_court;
-                    this.courtRealHeight = this.metadata.length_court;
-                } else { //default value if not width/height specified
-                    this.courtRealWidth = 2800;
-                    this.courtRealHeight = 1500;
-                }
-                courtWidth = Math.min(this.canvasWidth, (this.canvasWidth * this.courtRealWidth) / this.court.width);
-                courtHeight = Math.min(this.canvasHeight, (this.canvasHeight * this.courtRealHeight) / this.court.height);
-                this.leftOffCourt = (this.canvasWidth - courtWidth) / 2;
-                this.topOffCourt = (this.canvasHeight - courtHeight) / 2;
-                console.log("canvas width: " + this.canvasWidth);
-                console.log("canvas height: " + this.canvasHeight);
-                console.log("real height: " + courtHeight);
-                console.log("real width: " + courtWidth);
-                console.log("top offset: " + this.topOffCourt);
-                console.log("left offset:" + this.leftOffCourt);
-                this.canvas.setWidth(this.canvasWidth);
-                this.canvas.setHeight(this.canvasHeight);
-                this.canvas.clear();
-                this.canvas.remove(this.canvas.getActiveObject());
-                this.canvas.backgroundColor = "#a95d4d";
-                window.fabric.Image.fromURL("../../../assets/images/basketball-court-cutted.png", (img) => {
-                    img.set({
-                        scaleX: courtWidth / 1500, // width immagine
-                        scaleY: courtHeight / 915, // heigth immagine
-                        left: this.leftOffCourt,
-                        top: this.topOffCourt,
-                        selectable: false,
-                        evented: false,
+                if (response == undefined) {
+                    this.canvas.setWidth(800);
+                    this.canvas.setHeight(500);
+                    let text = new fabric.Text("Non è stato trovato nessun dato riguardante la configurazione del campo.\nImpossibile riprodurre il replay.", {
+                        fontSize: 20,
+                        left: 400,
+                        top: 250,
+                        originX: 'center',
+                        originY: 'center',
                     });
-                    this.canvas.add(img);
-                });
+                    this.canvas.add(text);
+                    let btn = document.getElementById('btn_play_match');
+                    let slider = document.getElementById('time_slider');
+                    btn!.setAttribute("disabled", '');
+                    slider!.setAttribute("hidden", '');
+                } else {
+                    this.c = response;
+                    let points = [];
+                    points.push(this.c.constellation.A0, this.c.constellation.A1,
+                        this.c.constellation.A2, this.c.constellation.A3,
+                        this.c.constellation.A4, this.c.constellation.A5,
+                        this.c.constellation.A6, this.c.constellation.A7);
+                    let dimensions = new AnchorsPositions(points);
+                    this.court = new Court(dimensions);
+                    let courtWidth: number, courtHeight: number;
+                    if (window.innerWidth < 1800) {
+                        this.canvasWidth = window.innerWidth - 200;
+                    } else {
+                        this.canvasWidth = (window.innerWidth / 100) * 60;
+                    }
+                    this.canvasHeight = this.canvasWidth / this.court.ratio;
+                    // get data from metadata
+                    if (this.metadata.width_court != null && this.metadata.length_court != null) {
+                        this.courtRealWidth = this.metadata.width_court;
+                        this.courtRealHeight = this.metadata.length_court;
+                    } else { //default value if not width/height specified
+                        this.courtRealWidth = 2800;
+                        this.courtRealHeight = 1500;
+                    }
+                    courtWidth = Math.min(this.canvasWidth, (this.canvasWidth * this.courtRealWidth) / this.court.width);
+                    courtHeight = Math.min(this.canvasHeight, (this.canvasHeight * this.courtRealHeight) / this.court.height);
+                    this.leftOffCourt = (this.canvasWidth - courtWidth) / 2;
+                    this.topOffCourt = (this.canvasHeight - courtHeight) / 2;
+                    console.log("canvas width: " + this.canvasWidth);
+                    console.log("canvas height: " + this.canvasHeight);
+                    console.log("real height: " + courtHeight);
+                    console.log("real width: " + courtWidth);
+                    console.log("top offset: " + this.topOffCourt);
+                    console.log("left offset:" + this.leftOffCourt);
+                    this.canvas.setWidth(this.canvasWidth);
+                    this.canvas.setHeight(this.canvasHeight);
+                    this.canvas.clear();
+                    this.canvas.remove(this.canvas.getActiveObject());
+                    this.canvas.backgroundColor = "#a95d4d";
+                    window.fabric.Image.fromURL("../../../assets/images/basketball-court-cutted.png", (img) => {
+                        img.set({
+                            scaleX: courtWidth / 1500, // width immagine
+                            scaleY: courtHeight / 915, // heigth immagine
+                            left: this.leftOffCourt,
+                            top: this.topOffCourt,
+                            selectable: false,
+                            evented: false,
+                        });
+                        this.canvas.add(img);
+                    });
+                }
                 this.canvas.renderAll();
                 this.canvas.calcOffset();
             },
@@ -450,7 +468,7 @@ export class ReplayComponent implements OnInit {
     }
 
     changeSliderStart() {
-        if(this.playing){
+        if (this.playing) {
             this.paused = true;
             this.playing = false;
             this.ws.send("PAUSE");
@@ -461,7 +479,7 @@ export class ReplayComponent implements OnInit {
     changeSliderEnd(changeContext: ChangeContext) {
         console.log(changeContext.value);
         let initDate = new Date(this.metadata.timestamp);
-        let sliderTime = initDate.getTime() + changeContext.value*1000;
+        let sliderTime = initDate.getTime() + changeContext.value * 1000;
         console.log(sliderTime);
         this.ws.send(sliderTime.toString());
     }
