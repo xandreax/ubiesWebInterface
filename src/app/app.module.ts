@@ -21,7 +21,6 @@ import { PlayerModalComponent } from './components/modals/player-modal/player-mo
 import { ErrorModalComponent } from './components/modals/error-modal/error-modal.component';
 import { TeamModalComponent } from './components/modals/team-modal/team-modal.component';
 import { ModalYesNoComponent } from './components/modals/modal-yes-no/modal-yes-no.component';
-import { QuarterComponent } from './components/registration/quarter/quarter.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { CardTeamComponent } from './components/card-team/card-team.component';
 import { MetadataFormComponent } from './components/metadata-form/metadata-form.component';
@@ -39,7 +38,6 @@ import { InfoModalComponent } from './components/modals/info-modal/info-modal.co
     ErrorModalComponent,
     TeamModalComponent,
     ModalYesNoComponent,
-    QuarterComponent,
     CardTeamComponent,
     MetadataFormComponent,
     InfoModalComponent,

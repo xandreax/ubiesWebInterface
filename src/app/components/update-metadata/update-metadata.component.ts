@@ -15,9 +15,6 @@ export class UpdateMetadataComponent implements OnInit {
     modalRef!: BsModalRef;
     registration_id: string = '';
     teams: Team[] = [];
-    /*teamsText: string [] = [];
-    teamControl = new FormControl();
-    teamSelected!: Team;*/
     private id: string = "";
     metadata!: Metadata;
 
@@ -25,13 +22,6 @@ export class UpdateMetadataComponent implements OnInit {
 
     constructor(private modalService: BsModalService,
                 private metadataService: MetadataService, private route: ActivatedRoute) {
-        /*
-        this.teamControl.valueChanges.subscribe(value => {
-            this.teams.forEach(team => {
-                if (team.name == value)
-                    this.teamSelected = team;
-            })
-        })*/
     }
 
     ngOnInit(): void {
@@ -39,12 +29,6 @@ export class UpdateMetadataComponent implements OnInit {
         this.metadataService.getMetadataById(this.id).subscribe(
             (response) => {
                 this.metadata = response;
-                /*this.teamSelected = this.metadata.teams[0];
-                this.registrationForm.setValue({name_registration: this.metadata.name_registration,
-                    width_court: this.metadata.width_court,
-                    length_court: this.metadata.length_court
-                });
-*/
             });
     }
 

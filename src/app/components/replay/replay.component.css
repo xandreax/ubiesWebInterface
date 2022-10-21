@@ -7,10 +7,6 @@ div#frontspace_replay{
   margin-top: 20px;
 }
 
-button#btn_first_quarter, #btn_second_quarter, #btn_third_quarter, #btn_fourth_quarter, #btn_full_match{
-  margin: 20px;
-}
-
 button#btn_back_to_home{
   width: fit-content;
   margin-bottom:30px;

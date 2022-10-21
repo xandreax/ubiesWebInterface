@@ -4,24 +4,6 @@
     </div>
     <div id="replay-container">
         <div id="canvas-container">
-            <!--<div id="buttons_quarter_container" style="display: none">
-                &lt;!&ndash; insert if is a match &ndash;&gt;
-                <button class="btn btn-primary" id="btn_full_match" [disabled]="fullMatchDisabled"
-                        (click)="showQuarter('full')">Match intero
-                </button>
-                <button class="btn btn-primary" id="btn_first_quarter" [disabled]="firstQuarterDisabled"
-                        (click)="showQuarter('first')">Primo quarto
-                </button>
-                <button class="btn btn-primary" id="btn_second_quarter" [disabled]="secondQuarterDisabled"
-                        (click)="showQuarter('second')">Secondo quarto
-                </button>
-                <button class="btn btn-primary" id="btn_third_quarter" [disabled]="thirdQuarterDisabled"
-                        (click)="showQuarter('third')">Terzo quarto
-                </button>
-                <button class="btn btn-primary" id="btn_fourth_quarter" [disabled]="fourthQuarterDisabled"
-                        (click)="showQuarter('fourth')">Quarto quarto
-                </button>
-            </div>-->
             <canvas id="basketball-court"></canvas>
             <ngx-slider [(value)]="time_in_seconds"
                         [options]="optionsSlider"
@@ -71,15 +53,6 @@
             </div>
         </div>
         <div id="court_and_teams_list_container">
-            <!--<h2 id="court_title">Campo:</h2>
-            <div id="court_dimensions">
-                <div id="length_court">
-                    <p>Lunghezza lato corto: {{(metadata.length_court) / 100 | number: '2.1-1'}} m</p>
-                </div>
-                <div id="width_court">
-                    <p>Lunghezza lato lungo: {{(metadata.width_court) / 100 | number: '2.1-1'}} m</p>
-                </div>
-            </div>-->
             <h2 id="teams_title">Squadre:</h2>
             <div id="teams_replay">
                 <div *ngFor="let team of teams">

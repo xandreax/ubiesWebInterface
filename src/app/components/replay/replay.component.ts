@@ -53,13 +53,6 @@ export class ReplayComponent implements OnInit {
     public optionsSlider!: Options;
     modalRef!: BsModalRef;
 
-    /*firstQuarterDisabled: boolean = false;
-    secondQuarterDisabled: boolean = false;
-    thirdQuarterDisabled: boolean = false;
-    fourthQuarterDisabled: boolean = false;
-    fullMatchDisabled: boolean = true;
-    private _event: any;*/
-
     constructor(
         private route: ActivatedRoute,
         private metadataService: MetadataService,
@@ -409,53 +402,6 @@ export class ReplayComponent implements OnInit {
         });
         return hoursString + ":" + minutesString + ":" + secondsString;
     }
-
-    /*
-        showQuarter(quarter: string) {
-            switch (quarter) {
-                case 'full':
-                    this.fullMatchDisabled = true;
-                    this.firstQuarterDisabled = false;
-                    this.secondQuarterDisabled = false;
-                    this.thirdQuarterDisabled = false;
-                    this.fourthQuarterDisabled = false;
-                    this.ws.send("FULL_MATCH");
-                    break;
-                case 'first':
-                    this.fullMatchDisabled = false;
-                    this.firstQuarterDisabled = true;
-                    this.secondQuarterDisabled = false;
-                    this.thirdQuarterDisabled = false;
-                    this.fourthQuarterDisabled = false;
-                    this.ws.send("FIRST_QUARTER");
-                    break;
-                case 'second':
-                    this.fullMatchDisabled = false;
-                    this.firstQuarterDisabled = false;
-                    this.secondQuarterDisabled = true;
-                    this.thirdQuarterDisabled = false;
-                    this.fourthQuarterDisabled = false;
-                    this.ws.send("SECOND_QUARTER");
-                    break;
-                case 'third':
-                    this.fullMatchDisabled = false;
-                    this.firstQuarterDisabled = false;
-                    this.secondQuarterDisabled = false;
-                    this.thirdQuarterDisabled = true;
-                    this.fourthQuarterDisabled = false;
-                    this.ws.send("THIRD_QUARTER");
-                    break;
-                case 'fourth':
-                    this.fullMatchDisabled = false;
-                    this.firstQuarterDisabled = false;
-                    this.secondQuarterDisabled = false;
-                    this.thirdQuarterDisabled = false;
-                    this.fourthQuarterDisabled = true;
-                    this.ws.send("FOURTH_QUARTER");
-                    break;
-            }
-        }
-    */
 
     @HostListener('window:resize', ['$event'])
     onResize(event?: any) {

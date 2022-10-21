@@ -95,16 +95,6 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 break;
-            /*case "FULL_MATCH":
-                break;
-            case "FIRST_QUARTER":
-                break;
-            case "SECOND_QUARTER":
-                break;
-            case "THIRD_QUARTER":
-                break;
-            case "FOURTH_QUARTER":
-                break;*/
             default:
                 //console.log(msg);
                 break;

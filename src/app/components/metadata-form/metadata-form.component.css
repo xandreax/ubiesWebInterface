@@ -101,13 +101,6 @@ i.bi-pencil-square{
     padding:0;
 }
 
-@media (max-width:1800px){
-
-    /*div#card_team_container{
-        width: 40%;
-    }*/
-}
-
 @media (max-width:1200px) {
     div#metadata-container{
         display: flex;

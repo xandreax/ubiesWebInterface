@@ -18,7 +18,6 @@ export class RegistrationComponent implements OnInit {
     registration_id: string = '';
     buttonSubmitString = "Salva e avvia registrazione";
     registration!: Metadata;
-    //firstQuarterRegistration: boolean = false;
 
     constructor(
         private route: Router,
