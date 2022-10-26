@@ -31,7 +31,8 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button *ngIf="team.name != 'Giocatori senza squadra'"  id="btn_remove_team" class="btn btn-danger" (click)="deleteTeamModal(team)">Rimuovi
+        <button *ngIf="team.name != 'Giocatori senza squadra'" id="btn_remove_team" class="btn btn-danger"
+                (click)="deleteTeamModal(team)">Rimuovi
             Team
         </button>
         <button id="btn_add_player" class="btn btn-primary" (click)="addPlayerModal(team)">

@@ -7,16 +7,17 @@ const db = client.db(mongoDB_config.dbName);
 
 //create and save new Metadata
 exports.create = async (req, res) => {
-    console.log("start saving new metadata");
+    log("start saving new metadata");
     const match = req.body.valueOf();
     //save match in the db
     await client.connect();
     const collection = await db.collection(mongoDB_config.collection_matches_info);
     collection.insertOne(match, (err) => {
-        if (err) return console.log(err);
+        if (err) {
+            res.status(400).send({message: err.message});
+            return log(err);
+        }
     });
-
-
     res.status(200).send({message: "metadata saved into Matches"});
     log("metadata saved into Matches");
 };
@@ -26,17 +27,20 @@ exports.findAll = async (req, res) => {
     await client.connect();
     const collection = await db.collection(mongoDB_config.collection_matches_info);
     collection.find().sort({timestamp: -1}).toArray((err, results) => {
-        if (err) return console.log(err);
-        res.status(200).send(results);
+        if (err) {
+            res.status(400).send({message: err.message});
+            return log(err);
+        }
+        res.send(results);
     });
 };
 
 // Update a metadata in matches metadata collection
 exports.update = async (req, res) => {
     const metadata = req.body.valueOf();
-    console.log(metadata);
+    log(metadata);
     await client.connect();
-    console.log("start updating metadata");
+    log("start updating metadata");
     const filter = {registration_id: metadata.registration_id};
     const updateMetadata = {
         $set: {
@@ -49,11 +53,14 @@ exports.update = async (req, res) => {
     };
 
     db.collection(mongoDB_config.collection_matches_info).findOneAndUpdate(filter, updateMetadata, (err) => {
-        if (err) return console.log(err);
+        if (err) {
+            res.status(400).send({message: err.message});
+            return log(err);
+        }
     });
 
     log("Metadata updated");
-    res.status(200).send({message: "Metadata updated"});
+    res.send({message: "Metadata updated"});
 };
 
 // Delete a Metadata from matches collection and delete all match data
@@ -62,9 +69,9 @@ exports.delete = async (req, res) => {
         res.status(400).send({message: "Metadata id can not be empty!"});
         return;
     }
-    console.log(req.params.id);
+    log(req.params.id);
     await client.connect();
-    console.log("start deleting Metadata");
+    log("start deleting Metadata");
     const query = {registration_id: req.params.id};
     await db.collection(mongoDB_config.collection_matches_info)
         .deleteOne(query)
@@ -75,14 +82,14 @@ exports.delete = async (req, res) => {
     await db.collection(mongoDB_config.collection_match_data)
         .deleteMany(query)
         .then(() => {
-            console.log("Successfully deleted position data")
+            log("Successfully deleted position data")
         })
         .catch(err => res.status(400).send({message: err.message}));
     await db.collection(mongoDB_config.collection_config_data)
         .deleteMany(query)
         .then(() => {
             res.status(200).send({message: "Metadata deleted"});
-            console.log("Successfully deleted all data")
+            log("Successfully deleted all data")
         })
         .catch(err => res.status(400).send({message: err.message}));
 };
@@ -95,7 +102,7 @@ exports.addEndTimestamp = async (req, res) => {
     }
     await client.connect();
     let date = req.body.end_timestamp;
-    console.log("date:" + date);
+    log("date:" + date);
     const filter = {registration_id: req.params.id};
     const update = {
         $set: {
@@ -103,9 +110,12 @@ exports.addEndTimestamp = async (req, res) => {
         },
     };
     db.collection(mongoDB_config.collection_matches_info).findOneAndUpdate(filter, update, (err) => {
-        if (err) return console.log(err);
+        if (err) {
+            res.status(400).send({message: err.message});
+            return log(err);
+        }
     });
-    console.log("End Timestamp added to Registration's metadata");
+    log("End Timestamp added to Registration's metadata");
     res.status(200).send({message: "End Timestamp added to metadata"});
 }
 
@@ -117,9 +127,7 @@ exports.findMetadataById = async (req, res) => {
     }
     await client.connect();
     const collection = await db.collection(mongoDB_config.collection_matches_info);
-    await collection.findOne({
-        registration_id: req.params.id
-    }).then(
-        (result) => res.status(200).send(result)
-    )
+    await collection.findOne({registration_id: req.params.id})
+        .then((result) => res.status(200).send(result))
+        .catch(err => res.status(400).send({message: err.message}));
 }

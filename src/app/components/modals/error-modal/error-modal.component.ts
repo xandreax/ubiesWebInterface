@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from "ngx-bootstrap/modal";
 
 @Component({
-  selector: 'app-error-modal',
-  templateUrl: './error-modal.component.html',
-  styleUrls: ['./error-modal.component.css']
+    selector: 'app-error-modal',
+    templateUrl: './error-modal.component.html',
+    styleUrls: ['./error-modal.component.css']
 })
 export class ErrorModalComponent implements OnInit {
-  modalText: string = "";
+    modalText: string = "";
 
-  constructor(public bsModalRef: BsModalRef) { }
+    constructor(public bsModalRef: BsModalRef) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  confirmError() {
-    this.bsModalRef.hide();
-  }
+    confirmError() {
+        this.bsModalRef.hide();
+    }
 }

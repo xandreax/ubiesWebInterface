@@ -122,15 +122,4 @@ export class Court {
     get height(): number {
         return this._height;
     }
-
-    /*
-        private imposeRectangularField() {
-            let x = this.point01.x + (this.point10.x - this.point00.x);
-            let y = this.point10.y + (this.point01.y - this.point00.y);
-
-            let candidatePoint = new Point([x, y]);
-            console.log("Field 11 Point : " + JSON.stringify(candidatePoint));
-            console.log("Field Error (cm): " + candidatePoint.distance(this.point11));
-            return candidatePoint;
-        }*/
 }

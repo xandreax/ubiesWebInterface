@@ -12,10 +12,6 @@ export class Point {
         this.z = coordinates[2] ? coordinates[2] : 0;
     }
 
-    /*public distance(anotherPoint: Point): number {
-        return calculator.distance(this, anotherPoint);
-    }*/
-
     public angle(anotherPoint: Point): number {
         return calculator.angle(this, anotherPoint);
     }

@@ -1,7 +1,7 @@
 import {Team} from "../models/team.model";
 import {Player} from "../models/player.model";
 
-export function checkPlayerNotDuplicate(teams: Team[], newPlayer: Player, oldPlayer: Player | null): boolean{
+export function checkPlayerNotDuplicate(teams: Team[], newPlayer: Player, oldPlayer: Player | null): boolean {
     let errorPlayer = false;
     teams.forEach(team => {
         team.players.forEach(player => {
@@ -33,6 +33,6 @@ export function checkPlayerNotDuplicate(teams: Team[], newPlayer: Player, oldPla
     return errorPlayer;
 }
 
-export function checkIfPlayerDataIsComplete(player: Player): boolean{
+export function checkIfPlayerDataIsComplete(player: Player): boolean {
     return player.id_tag > 0 && player.name != '';
 }

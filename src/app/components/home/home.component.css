@@ -5,7 +5,7 @@ div#home {
     width: 100%;
 }
 
-h1{
+h1 {
     font-size: 35px;
     font-family: 'Josefin Sans', sans-serif;
 }
@@ -64,8 +64,8 @@ pagination.pagination_matches {
     margin-top: 30px;
     margin-bottom: 50px;
     justify-content: center;
-
 }
+
 pagination.pagination_matches::ng-deep .page-item.active .page-link {
     z-index: 1;
     color: #FFFFFF;
@@ -73,8 +73,12 @@ pagination.pagination_matches::ng-deep .page-item.active .page-link {
     border-color: #52667d;
 }
 
-@media (max-width:650px){
-    div#header_list_matches_container{
+i.bi {
+    margin-left: 5px;
+}
+
+@media (max-width: 650px) {
+    div#header_list_matches_container {
         display: flex;
         flex-direction: column;
     }

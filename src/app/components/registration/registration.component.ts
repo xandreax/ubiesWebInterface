@@ -24,7 +24,8 @@ export class RegistrationComponent implements OnInit {
         private metadataService: MetadataService,
         private registrationService: RegistrationService,
         private modalService: BsModalService,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.registrationService.checkRegistration().subscribe((response) => {
@@ -37,7 +38,7 @@ export class RegistrationComponent implements OnInit {
         this.registrationService.stopRegistration().subscribe(
             (response) => console.log(response),
             (error) => {
-                this.modalRef =showErrorDialog(error.message, this.modalService);
+                this.modalRef = showErrorDialog(error.message, this.modalService);
                 console.log(error);
             }
         );
@@ -50,7 +51,7 @@ export class RegistrationComponent implements OnInit {
                 this.startRegistration = false;
             },
             (error) => {
-                this.modalRef =showErrorDialog(error.message, this.modalService);
+                this.modalRef = showErrorDialog(error.message, this.modalService);
                 console.log(error);
             }
         );

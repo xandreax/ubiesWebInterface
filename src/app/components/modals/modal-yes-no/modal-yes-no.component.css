@@ -2,6 +2,7 @@ button#btn_confirm, #btn_decline {
     width: 60px;
     margin: 20px;
 }
-div#modal_message_confirm_or_decline{
+
+div#modal_message_confirm_or_decline {
     margin: 10px;
 }

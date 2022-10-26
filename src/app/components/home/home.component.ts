@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
         this.matchesService.getAll().subscribe(
             (data) => {
                 this.matches = data;
-                this.returnedMatches = this.matches.slice(0,10);
+                this.returnedMatches = this.matches.slice(0, 10);
             },
             (error) => {
                 console.log(error);
@@ -50,14 +50,14 @@ export class HomeComponent implements OnInit {
     }
 
     deleteMatch(match: Metadata): void {
-        const text= 'Vuoi veramente cancellare la registrazione?';
+        const text = 'Vuoi veramente cancellare la registrazione?';
         const config = {
             initialState: {text},
         };
         this.modalRef = this.modalService.show(ModalYesNoComponent, config);
         this.modalRef.content.event.subscribe((response: boolean) => {
                 console.log(response);
-                if(response){
+                if (response) {
                     this.matchesService.delete(match.registration_id).subscribe(
                         (res) => {
                             console.log(res.message);
@@ -70,8 +70,8 @@ export class HomeComponent implements OnInit {
         );
     }
 
-    getLengthPeriodOfRegistration(match: Metadata):string {
-        if(match.end_registration_timestamp != undefined){
+    getLengthPeriodOfRegistration(match: Metadata): string {
+        if (match.end_registration_timestamp != undefined) {
             console.log(match.end_registration_timestamp);
             let initDate = new Date(match.timestamp);
             let endDate = new Date(match.end_registration_timestamp);
@@ -91,9 +91,8 @@ export class HomeComponent implements OnInit {
                 minimumIntegerDigits: 2,
                 useGrouping: false
             });
-            return diffHrs+ ":" + diffMins + ":" + diffSec;
-        }
-        else{
+            return diffHrs + ":" + diffMins + ":" + diffSec;
+        } else {
             console.log("non disponibile");
             return "non disponibile";
         }

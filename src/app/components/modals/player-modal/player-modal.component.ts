@@ -44,7 +44,7 @@ export class PlayerModalComponent implements OnInit {
             const initialState = {
                 modalText: this.modalText
             }
-            this.modalRef = this.modalService.show(ErrorModalComponent,{initialState} );
+            this.modalRef = this.modalService.show(ErrorModalComponent, {initialState});
             this.bsModalRef.hide();
         }
     }

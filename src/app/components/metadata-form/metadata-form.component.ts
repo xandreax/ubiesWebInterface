@@ -49,7 +49,7 @@ export class MetadataFormComponent implements OnInit {
     }
 
     submit(): void {
-        if(this.registration_id == ''){
+        if (this.registration_id == '') {
             this.registration_id = uuid.v4();
         }
         let name_registration: string = this.registrationForm.get('name')?.value;
@@ -133,16 +133,14 @@ export class MetadataFormComponent implements OnInit {
     addTeamModal() {
         this.modalRef = this.modalService.show(TeamModalComponent);
         this.modalRef.content.event.subscribe((team: Team) => {
-            if(checkTeamInfoIsComplete(team)){
-                if (!checkTeamNotDuplicate(this.teams, team, null)){
-                    console.log(team);
-                    this.insertTeam(team, null);
-                }
-                else
-                    this.modalRef = showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.", this.modalService);
-            }
-            else
-                this.modalRef = showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.", this.modalService);
+                if (checkTeamInfoIsComplete(team)) {
+                    if (!checkTeamNotDuplicate(this.teams, team, null)) {
+                        console.log(team);
+                        this.insertTeam(team, null);
+                    } else
+                        this.modalRef = showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.", this.modalService);
+                } else
+                    this.modalRef = showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.", this.modalService);
             }
         );
     }

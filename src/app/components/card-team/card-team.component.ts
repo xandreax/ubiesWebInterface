@@ -36,16 +36,14 @@ export class CardTeamComponent implements OnInit {
         }
         this.modalRef = this.modalService.show(TeamModalComponent, {initialState});
         this.modalRef.content.event.subscribe((updatedTeam: Team) => {
-            if(checkTeamInfoIsComplete(updatedTeam)){
-                if (!checkTeamNotDuplicate(this.teams, updatedTeam, team)){
-                    console.log(updatedTeam);
-                    this.updateTeamEvent.emit({newTeam: updatedTeam, oldTeam: team});
-                }
-                else
-                    this.showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.");
-            }
-            else
-                this.showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.");
+                if (checkTeamInfoIsComplete(updatedTeam)) {
+                    if (!checkTeamNotDuplicate(this.teams, updatedTeam, team)) {
+                        console.log(updatedTeam);
+                        this.updateTeamEvent.emit({newTeam: updatedTeam, oldTeam: team});
+                    } else
+                        this.showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.");
+                } else
+                    this.showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.");
             }
         );
     }

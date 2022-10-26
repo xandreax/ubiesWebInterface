@@ -1,49 +1,52 @@
-div#update_metadata{
-    margin:30px;
+div#update_metadata {
+    margin: 30px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-div#section1_body{
+div#section1_body {
     width: fit-content;
     margin-bottom: 30px;
 }
-div#insert_dimension_court_container{
-    display:grid;
+
+div#insert_dimension_court_container {
+    display: grid;
 
 }
-div#insert_length_court_container{
-    margin:20px;
-    grid-column:2;
-    display: flex;
-    flex-direction: column;
-}
-div#insert_width_court_container{
-    margin:20px;
-    grid-column:1;
+
+div#insert_length_court_container {
+    margin: 20px;
+    grid-column: 2;
     display: flex;
     flex-direction: column;
 }
 
+div#insert_width_court_container {
+    margin: 20px;
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-button#btn_add_team, #btn_save_modified_team, #btn_save_team{
+
+button#btn_add_team, #btn_save_modified_team, #btn_save_team {
     margin-top: 15px;
     margin-bottom: 10px;
 }
 
-button#btn_back_to_home, #btn_save_changes{
+button#btn_back_to_home, #btn_save_changes {
     margin: 20px 10px;
 }
 
-label{
+label {
     font-size: large;
     margin-top: 7px;
     margin-bottom: 7px;
 }
 
-ngx-select{
+ngx-select {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 80%;
@@ -51,47 +54,50 @@ ngx-select{
     text-align: center;
 }
 
-mat-card{
+mat-card {
     width: 800px;
-    border: solid 1px black ;
+    border: solid 1px black;
 }
 
-mat-card-content{
+mat-card-content {
     font-size: large;
 }
 
-div#row_player{
+div#row_player {
     align-items: center;
     margin: 5px;
 }
+
 button#modifyTeamBtn, btn#modifyTeamBtn:focus {
     outline: none;
     box-shadow: none;
     position: absolute;
-    right:15px;
-    top:5px;
+    right: 15px;
+    top: 5px;
     background-color: #FFFFFF;
     border-color: #FFFFFF;
     color: #52667d;
-    padding:0;
-}
-button#btn_modify_player, #btn_delete_player, #btn_add_player, #btn_remove_team{
-    padding:7px;
-    margin:5px 10px;
-}
-i.bi-pencil-square{
-    font-size: 25px;
-    color: #52667d;
-    padding:0;
+    padding: 0;
 }
 
-div#id_select_team_container{
+button#btn_modify_player, #btn_delete_player, #btn_add_player, #btn_remove_team {
+    padding: 7px;
+    margin: 5px 10px;
+}
+
+i.bi-pencil-square {
+    font-size: 25px;
+    color: #52667d;
+    padding: 0;
+}
+
+div#id_select_team_container {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-@media (max-width:850px){
-    mat-card{
+@media (max-width: 850px) {
+    mat-card {
         width: 100%;
     }
 }

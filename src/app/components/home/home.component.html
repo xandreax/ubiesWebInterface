@@ -29,10 +29,12 @@
                     <div class="col-sm">{{ match.timestamp | date: 'yyyy-MM-dd' }}</div>
                     <div class="col-sm">{{getLengthPeriodOfRegistration(match)}}</div>
                     <div class="col-sm">
-                        <button type="button" class="btn btn-primary" id="playMatchBtn" [routerLink]="['/replay', match.registration_id]"><i
+                        <button type="button" class="btn btn-primary" id="playMatchBtn"
+                                [routerLink]="['/replay', match.registration_id]"><i
                                 class="bi bi-play-fill"></i>
                         </button>
-                        <button type="button" class="btn btn-primary" id="renameMatchBtn" [routerLink]="['/modify', match.registration_id]">
+                        <button type="button" class="btn btn-primary" id="renameMatchBtn"
+                                [routerLink]="['/modify', match.registration_id]">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                         <button type="button" class="btn btn-danger" id="deleteMatchBtn"
@@ -43,8 +45,8 @@
             </li>
         </div>
         <pagination class="pagination_matches"
-                [totalItems]="matches.length"
-                [itemsPerPage]="10"
-                (pageChanged)="pageChanged($event)"></pagination>
+                    [totalItems]="matches.length"
+                    [itemsPerPage]="10"
+                    (pageChanged)="pageChanged($event)"></pagination>
     </ul>
 </div>

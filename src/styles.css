@@ -4,7 +4,8 @@
 html, body {
     height: 100%;
 }
-*{
+
+* {
     font-family: 'Ubuntu', sans-serif;
 }
 
@@ -13,31 +14,32 @@ body {
     /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
     background-color: darkgray;
 }
+
 nav {
     background-color: #52667d;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.btn-primary{
+
+.btn-primary {
     background-color: #52667d;
     border-color: #52667d;
 }
 
-i.bi{
+i.bi {
     margin-right: 5px;
-    margin-left: 5px;
 }
 
-img#kit_basket{
+img#kit_basket {
     max-height: 30px;
     margin: 10px 10px 10px 10px;
 }
 
-*{
+* {
     font-size: large;
 }
 
-h1{
-    line-height:50px;
+h1 {
+    line-height: 50px;
 }

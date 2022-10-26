@@ -34,7 +34,7 @@ export class MetadataService {
 
   //update metadata with end of registration timestamp
   updateEndTimestamp(id: string, date: Date): Observable<any>{
-     return this.http.post(`${baseUrl}/end/${id}`, {end_timestamp: date});
+    return this.http.post(`${baseUrl}/end/${id}`, {end_timestamp: date});
   }
 
   //get a metadata by id

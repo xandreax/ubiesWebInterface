@@ -1,17 +1,3 @@
-/*export interface TagData {
-    tag:{
-        protocol: number;
-        timestamp: Date;
-        id: number;
-        temp: number;
-        batt: number;
-        position: Array<number>;
-        hposition: Array<number>;
-        acc: Array<number>;
-        gyro: Array<number>;
-    }
-}*/
-
 export class TagData {
     public tag:{
         protocol: number;

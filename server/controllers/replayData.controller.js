@@ -40,63 +40,63 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
     ws.on('message', async msg => {
         switch (msg) {
             case "START":
-                console.log("started");
+                log("started");
                 initTimestamp = firstTimestampMilliseconds;
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 startLoops();
                 break;
             case "PAUSE":
-                console.log("paused");
+                log("paused");
                 clearInterval(loopMongo);
                 clearInterval(loopQuery);
                 break;
             case "STOP":
-                console.log("stopped");
+                log("stopped");
                 clearInterval(loopMongo);
                 clearInterval(loopQuery);
                 break;
             case "RESUME":
-                console.log("resume");
+                log("resume");
                 startLoops();
                 break;
             case "CLOSE":
-                console.log("closed");
+                log("closed");
                 ws.close();
                 break;
             case "BACK10":
-                console.log("back 10 seconds");
+                log("back 10 seconds");
                 initTimestamp = Math.max(firstTimestampMilliseconds, initTimestamp - (10 * 1000));
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 break;
             case "BACK30":
-                console.log("back 30 seconds");
+                log("back 30 seconds");
                 initTimestamp = Math.max(firstTimestampMilliseconds, initTimestamp - (30 * 1000));
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 break;
             case "FORWARD10":
-                console.log("forward 10 seconds");
+                log("forward 10 seconds");
                 initTimestamp = Math.min(lastTimestampMilliseconds, initTimestamp + (10 * 1000));
-                console.log(initTimestamp);
+                log(initTimestamp);
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 break;
             case "FORWARD30":
-                console.log("forward 30 seconds");
+                log("forward 30 seconds");
                 initTimestamp = Math.min(lastTimestampMilliseconds, initTimestamp + (30 * 1000));
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 break;
             case String(msg.match('^[0-9]+$')):
-                console.log("move to "+msg);
+                log("move to "+msg);
                 initTimestamp = parseInt(msg);
                 queue = new Queue();
                 tagsQueue = new TagQueue();
                 break;
             default:
-                //console.log(msg);
+                //log(msg);
                 break;
         }
     });
@@ -133,10 +133,9 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
             }
         }).sort({timestamp: 1}).forEach((doc) => queue.enqueue(doc.messages));
 
-        //queue.enqueue(query.toArray());
         let arrayTag, arrayMsg;
         if (!queue.isEmpty) {
-            console.log("queue length: " + queue.length);
+            log("queue length: " + queue.length);
             arrayMsg = queue.dequeue();
             if (arrayMsg !== undefined) {
                 arrayTag = arrayMsg.filter(tag => tag.hasOwnProperty('tag')).sort(compareTimestampTag);
@@ -144,7 +143,7 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
             }
         }
         else{
-            console.log("queue empty");
+            log("queue empty");
         }
     }
 
@@ -171,7 +170,7 @@ exports.findConstellation = async (req, res) => {
     await db.collection(collection_config_data).find({
         registration_id: req.params.id
     }).limit(1).toArray((err, results) => {
-        if (err) return console.log(err);
+        if (err) return log(err);
         res.status(200).send(results[0]);
     });
 };

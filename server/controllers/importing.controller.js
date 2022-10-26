@@ -5,9 +5,10 @@ const urlMongoDBHandler = "http://localhost:4567";
 
 //start registration
 exports.start = (req, res) => {
-    console.log(req.body.registration_id);
+    log(req.body.registration_id);
     if (!req.body.registration_id) {
         res.status(400).send({message: "Content can not be empty!"});
+        log("Content can not be empty!");
         return;
     }
     log("sending start registration event");
@@ -18,7 +19,8 @@ exports.start = (req, res) => {
             log("Sent mongoDb importer start signal");
         })
         .catch((err) => {
-            console.log(err.message);
+            res.status(400).send({message: err.message});
+            log(err.message);
         });
 };
 
@@ -32,6 +34,7 @@ exports.stop = (req, res) => {
             log("Sent registration stop signal");
         })
         .catch((err) => {
+            res.status(400).send({message: err.message});
             log(err.message);
         });
 };
@@ -46,6 +49,7 @@ exports.check = (req, res) => {
             log("Sent registration status");
         })
         .catch((err) => {
+            res.status(400).send({message: err.message});
             log(err.message);
         });
 };

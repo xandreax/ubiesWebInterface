@@ -1,5 +1,5 @@
 div#metadata-container {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -11,13 +11,13 @@ div#section1_container {
     text-align: center;
 }
 
-form#form_metadata_registration{
-    display:flex;
+form#form_metadata_registration {
+    display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-div#section2_container{
+div#section2_container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -27,32 +27,34 @@ div#section2_container{
     align-self: center;
 }
 
-div#card_team_container{
+div#card_team_container {
     margin-left: 20px;
     margin-right: 20px;
 }
 
-app-card-team{
+app-card-team {
     margin-left: 20px;
     margin-right: 20px;
 }
 
-div#insert_dimension_court_container{
-    display:grid;
+div#insert_dimension_court_container {
+    display: grid;
 
 }
-div#insert_length_court_container{
-    grid-column:1;
-    display: flex;
-    flex-direction: column;
-}
-div#insert_width_court_container{
-    grid-column:2;
+
+div#insert_length_court_container {
+    grid-column: 1;
     display: flex;
     flex-direction: column;
 }
 
-label{
+div#insert_width_court_container {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
     margin-top: 7px;
     margin-bottom: 7px;
 }
@@ -63,20 +65,21 @@ input {
     width: 80%;
     align-self: center;
 }
-div#input_name_registration{
+
+div#input_name_registration {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-button#btn_add_team{
+button#btn_add_team {
     margin-top: 7px;
     margin-bottom: 7px;
     width: fit-content;
     align-self: center;
 }
 
-ngx-select{
+ngx-select {
     margin-top: 7px;
     margin-bottom: 7px;
     width: 80%;
@@ -95,62 +98,67 @@ div#modal_message_confirm_error {
     margin: 10px;
 }
 
-i.bi-pencil-square{
+i.bi-pencil-square {
     font-size: 25px;
     color: #52667d;
-    padding:0;
+    padding: 0;
 }
 
-@media (max-width:1200px) {
-    div#metadata-container{
+@media (max-width: 1200px) {
+    div#metadata-container {
         display: flex;
         flex-direction: column;
-        margin:20px;
+        margin: 20px;
 
     }
-    div#section1_container{
+
+    div#section1_container {
         text-align: center;
     }
+
     ngx-select, input {
         width: 100%;
     }
 
-    app-card-team{
+    app-card-team {
         display: flex;
         justify-content: center;
         margin-bottom: 30px;
     }
-    div#card_team_container{
+
+    div#card_team_container {
         width: 90%;
-        text-align:center;
+        text-align: center;
     }
 
-    div#insert_length_court_container, #insert_width_court_container{
+    div#insert_length_court_container, #insert_width_court_container {
         margin-right: 10px;
         margin-left: 10px;
     }
 }
 
-@media (max-width:600px) {
-    div#start_registration_container{
+@media (max-width: 600px) {
+    div#start_registration_container {
         display: flex;
         flex-direction: column;
     }
-    div#section1_container{
-        margin:20px;
+
+    div#section1_container {
+        margin: 20px;
         text-align: center;
     }
+
     ngx-select, input {
         width: 100%;
     }
 
-    lable#label_input_name_registration, label#label_select_type_registration, ngx-select#select_type_registration, input#input_name_registration{
-        width:100%;
+    lable#label_input_name_registration, label#label_select_type_registration, ngx-select#select_type_registration, input#input_name_registration {
+        width: 100%;
         align-self: center;
     }
 
-    div#insert_dimension_court_container{
-        display:flex;
+    div#insert_dimension_court_container {
+        display: flex;
         flex-direction: column;
     }
 }

@@ -1,6 +1,6 @@
 div#registration_component_container {
     margin-top: 20px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 div#registration_container {
@@ -15,12 +15,12 @@ button#btn_stop_registration, #btn_stop_registration_first_quarter {
     margin-top: 30px;
     margin-bottom: 30px;
     width: fit-content;
-    align-self:center;
+    align-self: center;
 }
 
 progressbar#bar_registration_inprogress {
     width: 500px;
-    align-self:center;
+    align-self: center;
 }
 
 label#label_registration_bar {
@@ -29,10 +29,10 @@ label#label_registration_bar {
     font-size: x-large;
 }
 
-alert{
+alert {
     text-align: center;
     margin-top: 30px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
     width: 50%;
     align-self: center
 }
