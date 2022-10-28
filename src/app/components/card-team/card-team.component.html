@@ -3,7 +3,8 @@
         <img src="/assets/images/basketball-jersey-clipart.png" id="kit_basket"
              [style.background-color]="team.colour" alt="kit_color">
         {{team.name}}
-        <button type="button" class="btn btn-primary" id="modifyTeamBtn" *ngIf="team.name != 'Giocatori senza squadra'"
+        <button type="button" class="btn btn-primary" id="modifyTeamBtn"
+                *ngIf="team.name != 'Giocatori senza squadra'"
                 (click)="modifyTeamModal(team)">
             <i class="bi bi-pencil-square"></i>modifica
         </button>

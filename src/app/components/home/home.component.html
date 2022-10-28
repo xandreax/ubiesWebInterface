@@ -12,7 +12,7 @@
         <div class="content-wrapper">
             <li class="list-group-item" id="list_registrations_label">
                 <div class="row">
-                    <div class="col-sm">REGISTRAZIONE</div>
+                    <div class="col-sm-4">REGISTRAZIONE</div>
                     <div class="col-sm">TIPOLOGIA</div>
                     <div class="col-sm">DATA</div>
                     <div class="col-sm">DURATA</div>
@@ -24,7 +24,7 @@
                     id="match_list_item"
                     *ngFor="let match of returnedMatches">
                 <div class="row">
-                    <div class="col-sm">{{ match.name_registration }}</div>
+                    <div class="col-sm-4">{{ match.name_registration }}</div>
                     <div class="col-sm">{{ match.type_registration }}</div>
                     <div class="col-sm">{{ match.timestamp | date: 'yyyy-MM-dd' }}</div>
                     <div class="col-sm">{{getLengthPeriodOfRegistration(match)}}</div>

@@ -265,7 +265,7 @@ export class ReplayComponent implements OnInit {
                     this.court = new Court(dimensions);
                     let courtWidth: number, courtHeight: number;
                     if (window.innerWidth < 1800) {
-                        this.canvasWidth = window.innerWidth - 200;
+                        this.canvasWidth = (window.innerWidth / 100) * 90;
                     } else {
                         this.canvasWidth = (window.innerWidth / 100) * 60;
                     }

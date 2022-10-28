@@ -36,3 +36,9 @@ button#btn_remove_team, #btn_add_player {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+@media (max-width: 550px) {
+    mat-card{
+        width: 100%;
+    }
+}

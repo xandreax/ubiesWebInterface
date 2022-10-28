@@ -1,6 +1,11 @@
 <div id="replay-match-container">
     <div id="frontspace_replay">
-        <h1 id="title_match_replay">{{ metadata.name_registration }}</h1>
+        <button type="button" class="btn btn-primary" id="backToRegistrationsListBtn"
+                (click)="back_to_home()">
+            <i class="bi bi-house-door-fill"></i>Elenco registrazioni
+        </button>
+        <div id="div_space_between_btnback_metadataname"> >> </div>
+        <div id="div_metadata_name"> {{metadata.name_registration}}</div>
     </div>
     <div id="replay-container">
         <div id="canvas-container">
@@ -53,7 +58,6 @@
             </div>
         </div>
         <div id="court_and_teams_list_container">
-            <!--<h2 id="teams_title">Squadre:</h2>-->
             <div id="teams_replay">
                 <div *ngFor="let team of teams">
                     <mat-card>
@@ -79,9 +83,6 @@
                     </mat-card>
                 </div>
             </div>
-            <button id="btn_back_to_home" class="btn btn-primary" (click)="back_to_home()"><i
-                    class="bi bi-arrow-left-circle"></i> Torna alla Home
-            </button>
         </div>
     </div>
 </div>

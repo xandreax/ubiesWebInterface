@@ -4,23 +4,35 @@ div#replay-match-container {
 
 div#frontspace_replay {
     text-align: center;
-    margin-top: 20px;
+    margin: 10px 20px 10px 100px;
+    display: flex;
 }
 
-button#btn_back_to_home {
-    width: fit-content;
-    margin-bottom: 30px;
-    margin-top: 10px;
+button#backToRegistrationsListBtn {
+    outline: none;
+    box-shadow: none;
+    background-color: darkgray;
+    border-color: darkgray;
+    color: #52667d;
+    padding: 0;
+    font-size: 25px;
 }
 
-h1#title_match_replay {
-    font-size: xx-large;
-    text-transform: uppercase;
+i.bi-house-door-fill {
+    font-size: 25px;
+}
+
+div#div_metadata_name, #div_space_between_btnback_metadataname {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    margin-left: 5px;
 }
 
 div#replay-container {
     display: grid;
-    margin: 20px;
+    margin: 0 20px 40px 20px;
 }
 
 div#canvas-container {
@@ -90,5 +102,47 @@ mat-card-content {
     mat-card {
         margin: 20px;
         border: solid 1px black;
+    }
+}
+
+@media (max-width: 750px) {
+    div#frontspace_replay {
+        margin: 10px 20px 10px 50px;
+    }
+
+    button#backToRegistrationsListBtn {
+        font-size: 20px;
+    }
+
+    div#div_metadata_name, #div_space_between_btnback_metadataname {
+        font-size: 20px;
+    }
+
+    i.bi-house-door-fill {
+        font-size: 20px;
+    }
+
+    div#teams_replay {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    div#frontspace_replay {
+        margin: 10px 20px 10px 30px;
+    }
+
+    button#backToRegistrationsListBtn {
+        font-size: 16px;
+    }
+
+    div#div_metadata_name, #div_space_between_btnback_metadataname {
+        font-size: 16px;
+    }
+
+    i.bi-house-door-fill {
+        font-size: 16px;
     }
 }
