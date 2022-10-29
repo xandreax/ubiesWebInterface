@@ -4,17 +4,17 @@ import {Player} from "./player.model";
 export class Metadata {
     name_registration: string;
     registration_id: string;
-    type_registration: string;
+    /*type_registration: string;*/
     length_court: number;
     width_court: number;
     timestamp: Date;
     end_registration_timestamp: Date | undefined;
     teams: Team[] = [];
 
-    constructor(name_registration: string, registration_id: string, type_registration: string, length_court: number, width_court: number, timestamp: Date, teams: Array<any>, end_registration_timestamp: Date | undefined) {
+    constructor(name_registration: string, registration_id: string, /*type_registration: string,*/ length_court: number, width_court: number, timestamp: Date, teams: Array<any>, end_registration_timestamp: Date | undefined) {
         this.name_registration = name_registration;
         this.registration_id = registration_id;
-        this.type_registration = type_registration;
+        /*this.type_registration = type_registration;*/
         this.length_court = length_court;
         this.width_court = width_court;
         this.timestamp = timestamp;

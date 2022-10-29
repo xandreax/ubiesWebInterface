@@ -2,6 +2,8 @@
     <div id="start_registration_container" *ngIf="!startRegistration">
         <app-metadata-form
                 (submitEvent)="saveAndStart($event)"
+                [width_court]=2800
+                [length_court]=1500
                 [buttonSubmitString]="buttonSubmitString">
         </app-metadata-form>
     </div>

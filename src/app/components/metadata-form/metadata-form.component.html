@@ -12,7 +12,7 @@
                         formControlName="name"
                         required
                         [ngModel]="name_registration"/>
-                <label id="label_select_type_registration" for="select_type_registration">Modalità
+                <!--<label id="label_select_type_registration" for="select_type_registration">Modalità
                     registrazione:</label>
                 <ngx-select
                         id="select_type_registration"
@@ -21,7 +21,7 @@
                         placeholder="Nessuna modalità selezionata"
                         [ngModel]="type_registration"
                         noResultsFound="Modalità non trovata">
-                </ngx-select>
+                </ngx-select>-->
                 <div id="insert_dimension_court_container">
                     <div id="insert_length_court_container">
                         <label id="label_input_length_court" for="input_length_court">Lunghezza campo lato
@@ -50,12 +50,6 @@
                 </div>
             </form>
         </div>
-        <button id="btn_back_to_home" class="btn btn-primary" [routerLink]="'/home'"><i
-                class="bi bi-arrow-left-circle"></i>Torna alla Home
-        </button>
-        <button id="btn_save_registration" type="button" class="btn btn-primary"
-                (click)="submit()">{{buttonSubmitString}}
-        </button>
         <div id="team_container">
             <button id="btn_add_team" type="button" class="btn btn-primary"
                     (click)="addTeamModal()"><i class="bi bi-plus-circle"></i>
@@ -77,4 +71,13 @@
             </mat-card-title>
         </mat-card>
     </div>
+    <div id="btns_bottom_container">
+        <button id="btn_back_to_home" class="btn btn-primary" [routerLink]="'/home'"><i
+                class="bi bi-arrow-left-circle"></i>Torna alla Home
+        </button>
+        <button id="btn_save_registration" type="button" class="btn btn-primary"
+                (click)="submit()">{{buttonSubmitString}}
+        </button>
+    </div>
+
 </div>
