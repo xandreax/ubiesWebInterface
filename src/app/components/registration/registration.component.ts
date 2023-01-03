@@ -63,7 +63,7 @@ export class RegistrationComponent implements OnInit {
             (response) => {
                 console.log(response);
                 this.startRegistration = true;
-                console.log("start:" + this.startRegistration);
+                this.registration_id = $event.registration_id;
                 this.registrationService.startRegistration(this.registration_id).subscribe(
                     (response) => console.log(response),
                     (error) => {

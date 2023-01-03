@@ -12,7 +12,7 @@ html, body {
 body {
     margin: 0;
     /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
-    background-color: darkgray;
+    background-color: rgba(169, 169, 169, 0.28);
 }
 
 nav {
@@ -31,7 +31,7 @@ i.bi {
     margin-right: 5px;
 }
 
-img#kit_basket {
+img#kit_basket, #kit_basket_player, #kit_basket_team {
     max-height: 30px;
     margin: 10px 10px 10px 10px;
 }

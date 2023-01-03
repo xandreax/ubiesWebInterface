@@ -13,7 +13,6 @@
             <li class="list-group-item" id="list_registrations_label">
                 <div class="row">
                     <div class="col-sm-4">REGISTRAZIONE</div>
-                    <!--<div class="col-sm">TIPOLOGIA</div>-->
                     <div class="col-sm">DATA</div>
                     <div class="col-sm">DURATA</div>
                     <div class="col-sm"></div>
@@ -22,10 +21,9 @@
             <li
                     class="list-group-item"
                     id="match_list_item"
-                    *ngFor="let match of returnedMatches">
+                    *ngFor="let match of returnedRegistrations">
                 <div class="row">
                     <div class="col-sm-4">{{ match.name_registration }}</div>
-                   <!-- <div class="col-sm">{{ match.type_registration }}</div>-->
                     <div class="col-sm">{{ match.timestamp | date: 'yyyy-MM-dd' }}</div>
                     <div class="col-sm">{{getLengthPeriodOfRegistration(match)}}</div>
                     <div class="col-sm">
@@ -38,14 +36,14 @@
                             <i class="bi bi-pencil-square"></i>
                         </button>
                         <button type="button" class="btn btn-danger" id="deleteMatchBtn"
-                                (click)="deleteMatch(match)"><i class="bi bi-trash-fill"></i>
+                                (click)="deleteRegistration(match)"><i class="bi bi-trash-fill"></i>
                         </button>
                     </div>
                 </div>
             </li>
         </div>
         <pagination class="pagination_matches"
-                    [totalItems]="matches.length"
+                    [totalItems]="registrations.length"
                     [itemsPerPage]="10"
                     (pageChanged)="pageChanged($event)"></pagination>
     </ul>

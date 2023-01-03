@@ -14,7 +14,6 @@ import {showErrorDialog} from "../../util/showErrorModal";
 export class UpdateMetadataComponent implements OnInit {
     modalRef!: BsModalRef;
     registration_id: string = '';
-    teams: Team[] = [];
     private id: string = "";
     metadata!: Metadata;
 
@@ -31,13 +30,6 @@ export class UpdateMetadataComponent implements OnInit {
                 this.metadata = response;
             });
     }
-
-    /*
-    getTeamDefault(): any {
-        return this.teamSelected.name;
-    }
-
-   */
 
     updateChanges($event: Metadata) {
         this.metadataService.update($event).subscribe(

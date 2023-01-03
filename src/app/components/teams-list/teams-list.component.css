@@ -1,0 +1,63 @@
+ul#list_teams{
+    display: table;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 600px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-wrap: break-word;
+}
+
+.col-sm {
+    word-break: break-all;
+}
+
+
+li#list_teams_label {
+    background-color: #498b92;
+    color: white;
+}
+
+div#label_row{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+button#btn_add_team, button#btn_add_team:focus {
+    background-color: rgba(122, 175, 184, 0.53);
+    border-color: rgba(122, 175, 184, 0.53);
+    padding: 4px 4px 4px 4px;
+    position: absolute;
+    right: 10px;
+}
+
+button#renameTeamBtn, button#renameTeamBtn:focus{
+    outline: none;
+    box-shadow: none;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    color: #52667d;
+    padding: 0 0 0 4px;
+}
+
+button#deleteTeamBtn, button#deleteTeamBtn:focus{
+    outline: none;
+    box-shadow: none;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    color: red;
+    padding: 0 4px 0 0;
+}
+
+
+@media (max-width: 1200px){
+    ul#list_teams{
+        width: 100%;
+    }
+}

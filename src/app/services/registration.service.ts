@@ -20,7 +20,8 @@ export class RegistrationService {
     //start the java importer
     startRegistration(id: string): Observable<any> {
         console.log("service send start event to importer");
-        return this.http.post(`${baseUrl}/start`, {registration_id: id});
+        console.log(id);
+        return this.http.post(`${baseUrl}/start/${id}`, '');
     }
 
     //check status java importer

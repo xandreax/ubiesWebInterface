@@ -46,7 +46,6 @@ exports.update = async (req, res) => {
         $set: {
             name_registration: metadata.name_registration,
             teams: metadata.teams,
-            type_registration: metadata.type_registration,
             length_court: metadata.length_court,
             width_court: metadata.width_court
         },

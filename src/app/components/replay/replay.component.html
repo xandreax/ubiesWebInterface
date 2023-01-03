@@ -4,7 +4,7 @@
                 (click)="back_to_home()">
             <i class="bi bi-house-door-fill"></i>Elenco registrazioni
         </button>
-        <div id="div_space_between_btnback_metadataname"> >> </div>
+        <div id="div_space_between_btnback_metadataname"> > </div>
         <div id="div_metadata_name"> {{metadata.name_registration}}</div>
     </div>
     <div id="replay-container">
@@ -57,31 +57,62 @@
                 </button>
             </div>
         </div>
-        <div id="court_and_teams_list_container">
-            <div id="teams_replay">
-                <div *ngFor="let team of teams">
-                    <mat-card>
-                        <mat-card-title>
-                            <img src="/assets/images/basketball-jersey-clipart.png" id="kit_basket"
-                                 [style.background-color]="team.colour" alt="kit_color">
-                            {{team.name}}
-                        </mat-card-title>
-                        <mat-card-header>
-                            Giocatori:
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div *ngIf="team.players.length === 0">Nessun giocatore inserito</div>
-                            <div *ngFor="let player of team.players">
-                                <div class="row"
-                                     [ngStyle]="{'background-color': player.isSelected ? '#97c5d4' : '#ffffff'}">
-                                    <div class="col-sm">{{player.name}}</div>
-                                    <div class="col-sm">tag: {{player.id_tag}}</div>
-                                    <div class="col-sm">maglia: {{player.kit_number}}</div>
+        <div id="teams_and_players_list_container">
+            <div id="teams_replay" *ngIf="teams != undefined && teams.length != 0">
+                <ul class="list-group" id="list_teams">
+                    <div class="content-wrapper">
+                        <li class="list-group-item" id="list_teams_label">
+                            <div class="row">
+                                <div>SQUADRE</div>
+                            </div>
+                        </li>
+                        <li class="list-group-item"
+                            id="team_list_item"
+                            *ngFor="let team of teams">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <img src="/assets/images/basketball-jersey-clipart.png"
+                                         id="kit_basket_team"
+                                         [style.background-color]="team.colour"
+                                         alt="kit_color">
+                                    {{ team.name }}
                                 </div>
                             </div>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div id="players_replay">
+                <ul class="list-group" id="list_players">
+                    <div class="content-wrapper">
+                        <li class="list-group-item" id="list_players_label">
+                            <div class="row">
+                                <div>GIOCATORI</div>
+                            </div>
+                        </li>
+                        <li class="list-group-item"
+                            id="player_list_item"
+                            *ngFor="let player of players">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="bi bi-person-fill"></i>
+                                    {{ player.name }}
+                                </div>
+                                <div class="col-sm">
+                                    <i class="bi bi-cpu-fill"></i>
+                                    {{ player.id_tag }}
+                                </div>
+                                <div class="col-sm">
+                                    <img src="/assets/images/basketball-jersey-clipart.png"
+                                         id="kit_basket_player"
+                                         alt="kit_number"
+                                         [style.background-color]="getTeamColour(player.team)">
+                                    {{ player.kit_number }}
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
             </div>
         </div>
     </div>

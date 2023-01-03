@@ -1,0 +1,50 @@
+<ul class="list-group" id="list_players">
+    <div class="content-wrapper">
+        <li class="list-group-item" id="list_players_label">
+            <div class="row" id="label_row">
+                <div>GIOCATORI</div>
+                <button id="btn_add_player" type="button" class="btn btn-primary"
+                        (click)="addPlayerModal()"><i class="bi bi-plus-circle"></i>
+                    Aggiungi
+                </button>
+            </div>
+        </li>
+        <li class="list-group-item"
+            id="team_list_item"
+            *ngFor="let player of players">
+            <div class="row">
+                <div class="col-sm-4">
+                    <i class="bi bi-person-fill"></i>
+                    {{ player.name }}
+                </div>
+                <div class="col-sm">
+                    <i class="bi bi-cpu-fill"></i>
+                    {{ player.id_tag }}
+                </div>
+                <div class="col-sm">
+                    <img src="/assets/images/basketball-jersey-clipart.png"
+                         id="kit_basket"
+                         alt="kit_number"
+                         [style.background-color]="getTeamColour(player.team)">
+                    {{ player.kit_number }}
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-primary" id="btn_modify_player">
+                        <i class="bi bi-pencil-fill" (click)="modifyPlayerModal(player)"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btn_delete_player"
+                            (click)="deletePlayerModal(player)"><i
+                            class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item"
+            id="empty_player_list_item"
+            *ngIf="(players == undefined || players.length == 0)">
+            <div class="row">
+                <div class="col">Nessun giocatore inserito</div>
+            </div>
+        </li>
+    </div>
+</ul>

@@ -28,6 +28,15 @@
                 id="input_kit_number"
                 formControlName="kit_number"
         />
+        <label id="label_input_player_team" for="select_player_team">Seleziona una squadra a cui associare il giocatore:</label>
+        <ngx-select
+                id="select_player_team"
+                [formControl]="typeControl"
+                [items]="teams"
+                placeholder="Nessuna squadra"
+                optionTextField='text'
+                [ngModel]="teamSelected">
+        </ngx-select>
     </form>
     <button id="btn_decline_add_player" class="btn btn-primary" (click)="closeModal()">
         Annulla

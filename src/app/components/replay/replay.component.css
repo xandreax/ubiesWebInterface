@@ -11,8 +11,8 @@ div#frontspace_replay {
 button#backToRegistrationsListBtn {
     outline: none;
     box-shadow: none;
-    background-color: darkgray;
-    border-color: darkgray;
+    background-color: rgba(169, 169, 169, 0);
+    border-color: rgba(169, 169, 169, 0);
     color: #52667d;
     padding: 0;
     font-size: 25px;
@@ -43,7 +43,7 @@ div#canvas-container {
     align-items: center;
 }
 
-div#court_and_teams_list_container {
+div#teams_and_players_list_container {
     grid-column: 2;
 }
 
@@ -58,11 +58,6 @@ h2 {
     margin-bottom: 20px;
 }
 
-div.row {
-    padding-top: 10px;
-    padding-bottom: 5px;
-}
-
 canvas#basketball-court {
     border: 1px solid #cccccc;
 }
@@ -71,13 +66,25 @@ button#btn_play_match, #btn_stop_match, #btn_resume_match, #btn_pause_match, #bt
     margin: 10px 15px;
 }
 
-mat-card {
-    margin-bottom: 10px;
-    border: solid 1px black;
+div#players_replay{
+    margin-top: 20px;
 }
 
-mat-card-content {
-    font-size: large;
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-wrap: break-word;
+}
+
+li#list_teams_label {
+    background-color: #498b92;
+    color: white;
+}
+
+li#list_players_label {
+    background-color: rgba(255, 80, 50, 0.57);
+    color: white;
 }
 
 
@@ -88,20 +95,9 @@ mat-card-content {
         margin: 20px 0 20px;
     }
 
-    div#teams_replay {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-    }
-
-    div#court_and_teams_list_container {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    mat-card {
-        margin: 20px;
-        border: solid 1px black;
+    div#teams_and_players_list_container {
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }
 

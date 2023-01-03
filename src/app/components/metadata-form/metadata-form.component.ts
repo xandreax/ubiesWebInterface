@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import * as uuid from "uuid";
 import {Metadata} from "../../models/metadata.model";
 import {Team} from "../../models/team.model";
@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
 import {MetadataService} from "../../services/metadata.service";
 import {RegistrationService} from "../../services/registration.service";
 import {showErrorDialog} from "../../util/showErrorModal";
-import {TeamModalComponent} from "../modals/team-modal/team-modal.component";
-import {checkTeamInfoIsComplete, checkTeamNotDuplicate} from "../../util/team_management";
+import {Player} from "../../models/player.model";
+import {Squads} from "../../models/squads.model";
 
 @Component({
     selector: 'app-metadata-form',
@@ -19,17 +19,16 @@ import {checkTeamInfoIsComplete, checkTeamNotDuplicate} from "../../util/team_ma
 export class MetadataFormComponent implements OnInit {
     @Input() name_registration: string = '';
     @Input() registration_id: string = '';
-    /*@Input() type_registration: string = '';*/
     @Input() length_court: number = Number('');
     @Input() width_court: number = Number('');
-    @Input() teams: Team[] = [new Team("Giocatori senza squadra", "#000000")];
+    @Input() teams: Team[] = [];
+    @Input() players: Player[] = [];
     @Input() buttonSubmitString: string = '';
     @Output() submitEvent = new EventEmitter<Metadata>();
 
     modalRef!: BsModalRef;
     teamsText: string [] = [];
     registrationForm: FormGroup;
-    typeControl = new FormControl();
     registration!: Metadata;
 
     constructor(private route: Router,
@@ -58,11 +57,6 @@ export class MetadataFormComponent implements OnInit {
             this.modalRef = showErrorDialog("Nessun nome inserito per la registrazione, inseriscine uno per avviare la registrazione.", this.modalService);
             return;
         }
-        /*let type_registration = this.typeControl.value;
-        if (type_registration == null) {
-            this.modalRef = showErrorDialog("Non è stata selezionata la modalità della registrazione, selezionane una per avviarla.", this.modalService);
-            return;
-        }*/
         let length_court = this.registrationForm.get('length_court')?.value;
         if (length_court == '' || length_court == 0) {
             this.modalRef = showErrorDialog("Non è stata inserita la lunghezza del lato corto del campo, inseriscila uno per avviare la registrazione.", this.modalService);
@@ -73,32 +67,22 @@ export class MetadataFormComponent implements OnInit {
             this.modalRef = showErrorDialog("Non è stata inserita la lunghezza del lato lungo del campo, inseriscila per avviare la registrazione.", this.modalService);
             return;
         }
-        if (this.teams.length == 0) {
-            this.modalRef = showErrorDialog("Nessuna squadra inserita. \n Inserisci almeno una squadra per avviare una registrazione.", this.modalService);
+
+        if (this.players.length == 0) {
+            this.modalRef = showErrorDialog("Nessuna giocatore inserito. \n Inserisci almeno un giocatore per avviare una registrazione.", this.modalService);
             return;
         }
 
-        let errorPlayer = false;
-        let team_name;
-        this.teams.forEach((team) => {
-            if (team.players.length == 0) {
-                team_name = team.name;
-                errorPlayer = true;
-                return;
-            }
-        });
-        if (errorPlayer) {
-            this.modalRef = showErrorDialog("Nessuna giocatore inserito nella squadra " + team_name + ". \n Inserisci almeno un giocatore nella squadra per avviare una registrazione.", this.modalService);
-            return;
-        }
-        this.registration = new Metadata(name_registration, this.registration_id, /*type_registration*/ length_court,
-            width_court, new Date(), this.teams, undefined)
+        this.registration = new Metadata(name_registration, this.registration_id, length_court,
+            width_court, new Date(), new Squads(this.teams, this.players), undefined)
         console.log("metadata");
         console.log(this.registration);
         this.submitEvent.emit(this.registration);
     }
 
     insertTeam(newTeam: Team, oldTeam: Team | null) {
+        if(this.teams == null)
+            this.teams = [];
         if (oldTeam == null) {
             this.teams.push(newTeam);
             this.teamsText.push(newTeam.name);
@@ -121,24 +105,49 @@ export class MetadataFormComponent implements OnInit {
         this.teamsText.forEach((value, index) => {
             if ($event.name == value) this.teamsText.splice(index, 1)
         });
+        this.players.forEach(player =>{
+            if($event.name == player.team){
+                player.team = 'Nessuna squadra';
+            }
+        });
     }
 
     updateTeam($event: { newTeam: Team; oldTeam: Team }) {
         this.insertTeam($event.newTeam, $event.oldTeam);
     }
 
-    addTeamModal() {
-        this.modalRef = this.modalService.show(TeamModalComponent);
-        this.modalRef.content.event.subscribe((team: Team) => {
-                if (checkTeamInfoIsComplete(team)) {
-                    if (!checkTeamNotDuplicate(this.teams, team, null)) {
-                        console.log(team);
-                        this.insertTeam(team, null);
-                    } else
-                        this.modalRef = showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.", this.modalService);
-                } else
-                    this.modalRef = showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.", this.modalService);
-            }
-        );
+    deletePlayer($event: Player) {
+        this.players.forEach((value, index) => {
+            if ($event == value) this.players.splice(index, 1)
+        });
+    }
+
+    updatePlayer($event: { newPlayer: Player; oldPlayer: Player }) {
+        this.insertPlayer($event.newPlayer, $event.oldPlayer);
+    }
+
+    insertPlayer(newPlayer: Player, oldPlayer: Player | null) {
+        if(this.players == null)
+            this.players = [];
+        if (oldPlayer == null) {
+            this.players.push(newPlayer);
+        } else {
+            this.players.forEach(player => {
+                if (player.name == oldPlayer.name) {
+                    player.name = newPlayer.name;
+                    player.id_tag = newPlayer.id_tag;
+                    player.kit_number = newPlayer.kit_number;
+                    player.team = newPlayer.team;
+                }
+            });
+        }
+    }
+
+    addPlayer($event: Player) {
+        this.insertPlayer($event, null);
+    }
+
+    addTeam($event: Team) {
+        this.insertTeam($event, null);
     }
 }

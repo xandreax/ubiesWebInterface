@@ -31,7 +31,7 @@ class TagQueue {
     }
 
     peekTimestamp() {
-        return this.elements[this.head].tag.timestamp;
+        return this.elements[this.head].timestamp;
     }
 
     get length() {

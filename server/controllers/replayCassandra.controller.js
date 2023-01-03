@@ -1,42 +1,32 @@
 const {log} = require("console");
-const {MongoClient} = require("mongodb");
-const mongoDB_config = require("../db/mongodb_config");
-const {collection_match_data, collection_config_data} = require("../db/mongodb_config");
 const {Queue} = require("./queue/queue");
 const {TagQueue} = require("./queue/tag.queue");
+const models = require("../db/clientCassandra");
 
-const mongoDB_url = mongoDB_config.url;
-const client = new MongoClient(mongoDB_url);
-const db = client.db(mongoDB_config.dbName);
-let loopMongo;
+let loopCassandra;
 let loopQuery;
 let initTimestamp;
 
 //find in the db the match's collection and start to send data
 exports.findMatchCollectionAndSendData = async (ws, req) => {
     const id = req.params.id;
-    await client.connect();
-    const metadataCollection = await db.collection(mongoDB_config.collection_matches_info);
-    let metadata = await metadataCollection.findOne({
-        registration_id: id
+    const filter = {registration_id: req.params.id};
+    let firstTimestampMilliseconds, lastTimestampMilliseconds;
+    await models.instance.Metadata.findOne(filter, function (err, metadataFound) {
+        if (err) {
+            log(err);
+        } else {
+            log("found the desired metadata!");
+            const firstTimestampDate = new Date(metadataFound.timestamp);
+            firstTimestampMilliseconds = firstTimestampDate.getTime();
+            const lastTimestampDate = new Date(metadataFound.end_registration_timestamp);
+            lastTimestampMilliseconds = lastTimestampDate.getTime();
+            log("first timestamp: " + firstTimestampMilliseconds);
+            log("last timestamp: " + lastTimestampMilliseconds);
+        }
     });
-    const firstTimestampDate = new Date(metadata.timestamp);
-    let firstTimestampMilliseconds = firstTimestampDate.getTime();
-    const lastTimestampDate = new Date(metadata.end_registration_timestamp);
-    const lastTimestampMilliseconds = lastTimestampDate.getTime();
-    log("first timestamp: " + firstTimestampMilliseconds);
-    log("last timestamp: " + lastTimestampMilliseconds);
-    const matchCollection = await db.collection(collection_match_data);
-
-    const firstTimeQuery = await matchCollection.find({
-        registration_id: id
-    }).sort({timestamp: 1}).limit(1);
-    let firstTimestamp;
-    await firstTimeQuery.forEach(doc => firstTimestamp = doc.timestamp);
-
     let queue;
     let tagsQueue;
-
     ws.on('message', async msg => {
         switch (msg) {
             case "START":
@@ -48,12 +38,12 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
                 break;
             case "PAUSE":
                 log("paused");
-                clearInterval(loopMongo);
+                clearInterval(loopCassandra);
                 clearInterval(loopQuery);
                 break;
             case "STOP":
                 log("stopped");
-                clearInterval(loopMongo);
+                clearInterval(loopCassandra);
                 clearInterval(loopQuery);
                 break;
             case "RESUME":
@@ -103,8 +93,8 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
 
 
     function startLoops() {
-        loopMongo = setInterval(function () {
-            getDataBetweenTwoDatesAndSend(ws, initTimestamp, lastTimestampMilliseconds);
+        loopCassandra = setInterval(function () {
+            getDataBetweenTwoDates(ws, initTimestamp, lastTimestampMilliseconds);
             initTimestamp = initTimestamp + 1000;
         }, 1000);
         let intervalTimestamp = initTimestamp - 1000;
@@ -114,9 +104,9 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
         }, 100);
     }
 
-    async function getDataBetweenTwoDatesAndSend(ws, firstTimestampMilliseconds, lastTimestampMilliseconds) {
+    async function getDataBetweenTwoDates(ws, firstTimestampMilliseconds, lastTimestampMilliseconds) {
         if (firstTimestampMilliseconds > lastTimestampMilliseconds) {
-            clearInterval(loopMongo);
+            clearInterval(loopCassandra);
             clearInterval(loopQuery)
             log("sent all data!");
             ws.send("END");
@@ -126,30 +116,31 @@ exports.findMatchCollectionAndSendData = async (ws, req) => {
         let initDate = new Date(firstTimestampMilliseconds);
         let queryDate = new Date((firstTimestampMilliseconds + 1000));
         const smallStart = Date.now();
-        await matchCollection.find({
+
+        let filterIntervalTimestamp = {
             registration_id: id,
             timestamp: {
                 $gte: initDate,
                 $lt: queryDate
-            }
-        }).sort({timestamp: 1}).forEach((doc) => queue.enqueue(doc.messages));
-        log('Big:' + (Date.now() - smallStart) + ' ms');
-        let arrayTag, arrayMsg;
-        if (!queue.isEmpty) {
-            log("queue length: " + queue.length);
-            arrayMsg = queue.dequeue();
-            if (arrayMsg !== undefined) {
-                arrayTag = arrayMsg.filter(tag => tag.hasOwnProperty('tag')).sort(compareTimestampTag);
+            },
+            $orderby: { '$asc' :'timestamp' }
+        }
+        await models.instance.RegData.find(filterIntervalTimestamp, function(err, messages){
+            if (err) {
+                log(err);
+            } else {
+                let arrayTag = messages.filter(tag => tag.position != null);
+                console.log("arraytag:"+arrayTag.length);
                 tagsQueue.enqueueTags(arrayTag);
             }
-        }
-        else{
-            log("queue empty");
-        }
+        })
+        log('Big:' + (Date.now() - smallStart) + ' ms');
     }
 
     function send_data(timestamp) {
         let results = tagsQueue.dequeueTags(timestamp);
+        console.log("arraytag:"+tagsQueue.length);
+        console.log("results:"+results.length);
         ws.send(JSON.stringify(results));
     }
 };
@@ -163,15 +154,19 @@ function compareTimestampTag(a, b) {
 }
 
 exports.findConstellation = async (req, res) => {
+    console.log("constellation finding!");
     if (!req.params.id) {
-        res.status(400).send({message: "Match id can not be empty!"});
+        res.status(400).send({message: "Metadata id can not be empty!"});
         return;
     }
-    await client.connect();
-    await db.collection(collection_config_data).find({
-        registration_id: req.params.id
-    }).limit(1).toArray((err, results) => {
-        if (err) return log(err);
-        res.status(200).send(results[0]);
-    });
+    const filter = {registration_id: req.params.id};
+    models.instance.ConfigData.findOne(filter, function (err, config) {
+        if (err) {
+            res.status(400).send({message: err.message});
+            log(err);
+        } else {
+            log("found the desired configuration data!");
+            res.send(config);
+        }
+    })
 };

@@ -1,22 +1,21 @@
 const axios = require("axios");
 const {log} = require("console");
 
-const urlMongoDBHandler = "http://localhost:4567";
+const urlImporterKafka = "http://localhost:4567";
 
 //start registration
 exports.start = (req, res) => {
-    log(req.body.registration_id);
-    if (!req.body.registration_id) {
-        res.status(400).send({message: "Content can not be empty!"});
-        log("Content can not be empty!");
+    if (!req.params.id) {
+        res.status(400).send({message: "Metadata id can not be empty!"});
         return;
     }
+    log(req.params.id);
     log("sending start registration event");
     axios
-        .post(urlMongoDBHandler + "/start", req.body.registration_id)
+        .post(urlImporterKafka + "/start", req.params.id)
         .then((data) => {
             res.send(data);
-            log("Sent mongoDb importer start signal");
+            log("Sent importer start signal");
         })
         .catch((err) => {
             res.status(400).send({message: err.message});
@@ -28,7 +27,7 @@ exports.start = (req, res) => {
 exports.stop = (req, res) => {
     log("sending stop registration event");
     axios
-        .post(urlMongoDBHandler + "/stop")
+        .post(urlImporterKafka + "/stop")
         .then((data) => {
             res.send(data);
             log("Sent registration stop signal");
@@ -43,7 +42,7 @@ exports.stop = (req, res) => {
 exports.check = (req, res) => {
     log("sending check registration event");
     axios
-        .get(urlMongoDBHandler + "/status")
+        .get(urlImporterKafka + "/status")
         .then((data) => {
             res.send(data);
             log("Sent registration status");

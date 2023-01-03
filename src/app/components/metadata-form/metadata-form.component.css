@@ -21,35 +21,58 @@ div#section2_container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /*margin: 20px 40px;*/
+    margin: 20px 40px;
     text-align: center;
     justify-content: space-evenly;
     align-self: center;
 }
 
-div#card_team_container {
-    margin-left: 20px;
+div#teams_container{
+    display:flex;
+    flex-direction: column;
+    align-self: center;
+    text-align: center;
     margin-right: 20px;
 }
 
-app-card-team {
+div#players_container{
+    display:flex;
+    flex-direction: column;
+    align-self: center;
+    text-align: center;
     margin-left: 20px;
-    margin-right: 20px;
+}
+
+label#label_inputs_dimensions{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 div#insert_dimension_court_container {
     display: grid;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 
+div#court_img_container{
+    grid-column: 1;
+}
+
+div#inputs_dimensions_container{
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 div#insert_length_court_container {
-    grid-column: 1;
     display: flex;
     flex-direction: column;
 }
 
 div#insert_width_court_container {
-    grid-column: 2;
     display: flex;
     flex-direction: column;
 }
@@ -62,7 +85,7 @@ label {
 input {
     margin-top: 7px;
     margin-bottom: 7px;
-    width: 80%;
+    width: 60%;
     align-self: center;
 }
 
@@ -70,24 +93,6 @@ div#input_name_registration {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-button#btn_add_team {
-    margin-top: 17px;
-    margin-bottom: 7px;
-    width: fit-content;
-    align-self: center;
-}
-
-ngx-select {
-    margin-top: 7px;
-    margin-bottom: 7px;
-    width: 80%;
-    align-self: center;
-    text-align-last: center;
-    text-align: center;
-    -ms-text-align-last: center;
-    -moz-text-align-last: center;
 }
 
 button#btn_save_registration, #btn_back_to_home {
@@ -109,31 +114,51 @@ i.bi-pencil-square {
     padding: 0;
 }
 
+@media (max-width: 1579px){
+    div#teams_container{
+        margin-bottom: 10px;
+    }
+    div#players_container{
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 1200px) {
     div#metadata-container {
         display: flex;
         flex-direction: column;
         margin: 20px;
-
+        width: 100%;
     }
 
     div#section1_container {
         text-align: center;
     }
 
-    ngx-select, input {
-        width: 100%;
+    div#section2_container{
+        margin: 10px 0 0 0;
     }
 
-    app-card-team {
+    div#teams_container{
+        margin-bottom: 10px;
+        width: 90%;
+        margin-right: 0;
+    }
+
+    app-teams-list{
         display: flex;
         justify-content: center;
-        margin-bottom: 30px;
     }
 
-    div#card_team_container {
+    app-players-list{
+        display: flex;
+        justify-content: center;
+    }
+
+    div#players_container{
+        margin-top: 10px;
+        margin-left: 0;
         width: 90%;
-        text-align: center;
     }
 
     div#insert_length_court_container, #insert_width_court_container {
@@ -148,16 +173,16 @@ i.bi-pencil-square {
         flex-direction: column;
     }
 
+    div#metadata-container{
+        width: 100%;
+    }
+
     div#section1_container {
         margin: 20px;
         text-align: center;
     }
 
-    ngx-select, input {
-        width: 100%;
-    }
-
-    lable#label_input_name_registration, label#label_select_type_registration, ngx-select#select_type_registration, input#input_name_registration {
+    lable#label_input_name_registration, label#label_select_type_registration, input#input_name_registration {
         width: 100%;
         align-self: center;
     }

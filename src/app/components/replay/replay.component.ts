@@ -13,6 +13,7 @@ import {Point} from "../../models/cartesian/point.model";
 import {ChangeContext, LabelType, Options} from "@angular-slider/ngx-slider";
 import {InfoModalComponent} from "../modals/info-modal/info-modal.component";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {Player} from "../../models/player.model";
 
 const ws_url = 'ws://localhost:8081/replay';
 
@@ -36,7 +37,8 @@ export class ReplayComponent implements OnInit {
     public stopped = true;
     public id: string = '';
     public metadata!: Metadata;
-    public teams!: Team[];
+    public teams: Team[] = [];
+    public players: Player[] = [];
     private mapColourTags: Map<number, string> = new Map();
     private c!: Constellation;
     private court!: Court;
@@ -67,13 +69,11 @@ export class ReplayComponent implements OnInit {
         this.metadataService.getMetadataById(this.id).subscribe(
             (response) => {
                 this.metadata = response;
-                this.teams = this.metadata.teams;
-                this.teams.forEach(team => {
-                    let players = team.players;
-                    let colour = team.colour;
-                    players.forEach(player => {
-                        this.mapColourTags.set(player.id_tag, colour);
-                    });
+                this.teams = this.metadata.squads.teams;
+                this.players = this.metadata.squads.players;
+                this.players.forEach(player => {
+                    let colour = this.getTeamColour(player.team);
+                    this.mapColourTags.set(player.id_tag, colour);
                 });
                 //set timer
                 if (this.metadata.end_registration_timestamp != undefined) {
@@ -132,20 +132,20 @@ export class ReplayComponent implements OnInit {
             let resultPoint = new Point([(point1.x+point2.x)/2, (point1.y+point2.y)/2]);
             let point = this.court.projectPlayerOnCourt(resultPoint);*/
 
-            let point = this.court.projectPlayerOnCourt(new Point(data.tag.position));
+            let point = this.court.projectPlayerOnCourt(new Point(data.position));
             console.log("x:" + point.x + " y:" + point.y);
             let x = Math.min(Math.max(0, point.x * this.canvasWidth), this.canvasWidth);
             let y = Math.min(
                 Math.max(0, Math.abs(point.y * this.canvasHeight)),
                 this.canvasHeight
             );
-            if (this.mapActiveTags.has(data.tag.id)) {
-                this.mapActiveTags.get(data.tag.id)?.set({left: x, top: y});
+            if (this.mapActiveTags.has(data.id)) {
+                this.mapActiveTags.get(data.id)?.set({left: x, top: y});
             } else {
                 //set colors
                 let circle;
-                if (this.mapColourTags.has(data.tag.id)) {
-                    let colour = this.mapColourTags.get(data.tag.id)
+                if (this.mapColourTags.has(data.id)) {
+                    let colour = this.mapColourTags.get(data.id)
                     circle = new fabric.Circle({
                         radius: 13,
                         originX: 'center',
@@ -167,7 +167,7 @@ export class ReplayComponent implements OnInit {
                     });
                 }
                 circle.hoverCursor = 'pointer';
-                let text = new fabric.Text(String(data.tag.id), {
+                let text = new fabric.Text(String(data.id), {
                     fontSize: 14,
                     originX: 'center',
                     originY: 'center',
@@ -182,19 +182,19 @@ export class ReplayComponent implements OnInit {
                 });
                 group.on('mousedown', () => {
                     //click on tag
-                    this.teams.forEach(team => {
-                        team.players.forEach(player => {
-                            if (player.id_tag == data.tag.id) {
-                                player.isSelected = !player.isSelected;
-                            } else {
-                                player.isSelected = false;
-                            }
-                        });
-                    });
+                    // this.teams.forEach(team => {
+                    //     team.players.forEach(player => {
+                    //         if (player.id_tag == data.tag.id) {
+                    //             player.isSelected = !player.isSelected;
+                    //         } else {
+                    //             player.isSelected = false;
+                    //         }
+                    //     });
+                    // });
                     console.log('circle:mousedown');
                 });
                 this.canvas.add(group);
-                this.mapActiveTags.set(data.tag.id, group);
+                this.mapActiveTags.set(data.id, group);
             }
         });
         this.canvas.renderAll();
@@ -257,10 +257,10 @@ export class ReplayComponent implements OnInit {
                 } else {
                     this.c = response;
                     let points = [];
-                    points.push(this.c.constellation.A0, this.c.constellation.A1,
-                        this.c.constellation.A2, this.c.constellation.A3,
-                        this.c.constellation.A4, this.c.constellation.A5,
-                        this.c.constellation.A6, this.c.constellation.A7);
+                    points.push(this.c.A0, this.c.A1,
+                        this.c.A2, this.c.A3,
+                        this.c.A4, this.c.A5,
+                        this.c.A6, this.c.A7);
                     let dimensions = new AnchorsPositions(points);
                     this.court = new Court(dimensions);
                     let courtWidth: number, courtHeight: number;
@@ -436,6 +436,20 @@ export class ReplayComponent implements OnInit {
             initialState: {metadata},
         };
         this.modalRef = this.modalService.show(InfoModalComponent, config);
+    }
+
+    getTeamColour(team: string | undefined): string {
+        if (team == undefined || team == 'Nessuna squadra')
+            return '#FFFFFF';
+        else {
+            let colour = '';
+            this.teams?.forEach(value => {
+                if (value.name == team) {
+                    colour = value.colour;
+                }
+            })
+            return colour;
+        }
     }
 }
 

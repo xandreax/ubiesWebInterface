@@ -9,8 +9,8 @@ import {
     checkIfPlayerDataIsComplete,
     checkPlayerNotDuplicate
 } from "../../util/player_management";
-import {ErrorModalComponent} from "../modals/error-modal/error-modal.component";
 import {checkTeamNotDuplicate, checkTeamInfoIsComplete} from "../../util/team_management";
+import { showErrorDialog } from 'src/app/util/showErrorModal';
 
 @Component({
     selector: 'app-card-team',
@@ -41,15 +41,15 @@ export class CardTeamComponent implements OnInit {
                         console.log(updatedTeam);
                         this.updateTeamEvent.emit({newTeam: updatedTeam, oldTeam: team});
                     } else
-                        this.showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.");
+                        showErrorDialog("I dati della squadra sono già presenti in un'altra squadra, ricontrolla i dati inseriti.", this.modalService);
                 } else
-                    this.showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.");
+                    showErrorDialog("Errore nel form della squadra inserita, assicurati di aver inserito tutti i dati.", this.modalService);
             }
         );
     }
 
     modifyPlayerModal(team: Team, oldPlayer: Player) {
-        const initialState = {
+        /*const initialState = {
             player: oldPlayer
         }
         this.modalRef = this.modalService.show(PlayerModalComponent, {initialState});
@@ -67,17 +67,17 @@ export class CardTeamComponent implements OnInit {
                         console.log(newPlayer);
                         this.updateTeamEvent.emit({newTeam: team, oldTeam: oldTeam});
                     } else {
-                        this.showErrorDialog("I dati del giocatore sono già presenti in un'altra squadra, ricontrolla i dati inseriti.");
+                        showErrorDialog("I dati del giocatore sono già presenti in un'altra squadra, ricontrolla i dati inseriti.", this.modalService);
                     }
                 } else {
-                    this.showErrorDialog("Errore nel form del giocatore, assicurati di aver inserito tutti i dati.");
+                    showErrorDialog("Errore nel form del giocatore, assicurati di aver inserito tutti i dati.", this.modalService);
                 }
             }
-        );
+        );*/
     }
 
     deletePlayerModal(team: Team, player: Player) {
-        const text = 'Sei sicuro di voler eliminare il giocatore ' + player.name + '?';
+        /*const text = 'Sei sicuro di voler eliminare il giocatore ' + player.name + '?';
         const config = {
             initialState: {text},
         };
@@ -91,7 +91,7 @@ export class CardTeamComponent implements OnInit {
                     this.updateTeamEvent.emit({newTeam: team, oldTeam: oldTeam});
                 }
             }
-        );
+        );*/
     }
 
     deleteTeamModal(team: Team) {
@@ -108,7 +108,7 @@ export class CardTeamComponent implements OnInit {
     }
 
     addPlayerModal(team: Team) {
-        this.modalRef = this.modalService.show(PlayerModalComponent);
+        /*this.modalRef = this.modalService.show(PlayerModalComponent);
         this.modalRef.content.event.subscribe((response: Player) => {
                 if (checkIfPlayerDataIsComplete(response)) {
                     if (!checkPlayerNotDuplicate(this.teams, response, null)) {
@@ -117,19 +117,19 @@ export class CardTeamComponent implements OnInit {
                         console.log(response);
                         this.updateTeamEvent.emit({newTeam: team, oldTeam: oldTeam});
                     } else {
-                        this.showErrorDialog("I dati del giocatore sono già presenti in un'altra squadra, ricontrolla i dati inseriti.");
+                        showErrorDialog("I dati del giocatore sono già presenti in un'altra squadra, ricontrolla i dati inseriti.", this.modalService);
                     }
                 } else {
-                    this.showErrorDialog("Errore nel form del giocatore, assicurati di aver inserito tutti i dati.");
+                    showErrorDialog("Errore nel form del giocatore, assicurati di aver inserito tutti i dati.", this.modalService);
                 }
             }
-        );
+        );*/
     }
 
-    private showErrorDialog(text: string) {
+    /*private showErrorDialog(text: string) {
         const initialState = {
             modalText: text
         }
         this.modalRef = this.modalService.show(ErrorModalComponent, {initialState});
-    }
+    }*/
 }

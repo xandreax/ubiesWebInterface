@@ -1,7 +1,8 @@
 var express = require("express");
 var cors = require("cors");
 var app = express();
-const matchData = require("./controllers/replayData.controller");
+//const matchData = require("./controllers/replayData.controller");
+const replayData = require("./controllers/replayCassandra.controller");
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +24,7 @@ app.listen(port, () => {
     console.log(`Server listening on the port:${port}`);
 });
 
-app.ws("/replay/:id", matchData.findMatchCollectionAndSendData);
+//app.ws("/replay/:id", matchData.findMatchCollectionAndSendData);
+app.ws("/replay/:id", replayData.findMatchCollectionAndSendData);
 
 module.exports = app;

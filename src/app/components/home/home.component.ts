@@ -12,26 +12,28 @@ import {ModalYesNoComponent} from "../modals/modal-yes-no/modal-yes-no.component
     styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-    matches: Metadata[] = [];
+    registrations: Metadata[] = [];
     modalRef!: BsModalRef;
-    returnedMatches: Metadata[] = [];
+    returnedRegistrations: Metadata[] = [];
 
     constructor(
-        private matchesService: MetadataService,
+        private metadataService: MetadataService,
         private modalService: BsModalService,
         private route: Router,
     ) {
     }
 
     ngOnInit(): void {
-        this.getAllMatches();
+        this.getAllRegistrations();
     }
 
-    getAllMatches(): void {
-        this.matchesService.getAll().subscribe(
+    getAllRegistrations(): void {
+        this.metadataService.getAll().subscribe(
             (data) => {
-                this.matches = data;
-                this.returnedMatches = this.matches.slice(0, 10);
+                data.sort(compareTimestampTag);
+                this.registrations = data;
+                this.returnedRegistrations = this.registrations.slice(0, 10);
+                console.log("get all data!");
             },
             (error) => {
                 console.log(error);
@@ -42,14 +44,14 @@ export class HomeComponent implements OnInit {
     pageChanged(event: PageChangedEvent): void {
         const startItem = (event.page - 1) * event.itemsPerPage;
         const endItem = event.page * event.itemsPerPage;
-        this.returnedMatches = this.matches.slice(startItem, endItem);
+        this.returnedRegistrations = this.registrations.slice(startItem, endItem);
     }
 
     goToRegistration(): void {
         this.route.navigate(["/registration"]);
     }
 
-    deleteMatch(match: Metadata): void {
+    deleteRegistration(metadata: Metadata): void {
         const text = 'Vuoi veramente cancellare la registrazione?';
         const config = {
             initialState: {text},
@@ -58,10 +60,10 @@ export class HomeComponent implements OnInit {
         this.modalRef.content.event.subscribe((response: boolean) => {
                 console.log(response);
                 if (response) {
-                    this.matchesService.delete(match.registration_id).subscribe(
+                    this.metadataService.delete(metadata.registration_id).subscribe(
                         (res) => {
                             console.log(res.message);
-                            this.getAllMatches();
+                            this.getAllRegistrations();
                         },
                         (err) => console.log(err)
                     );
@@ -70,11 +72,11 @@ export class HomeComponent implements OnInit {
         );
     }
 
-    getLengthPeriodOfRegistration(match: Metadata): string {
-        if (match.end_registration_timestamp != undefined) {
-            console.log(match.end_registration_timestamp);
-            let initDate = new Date(match.timestamp);
-            let endDate = new Date(match.end_registration_timestamp);
+    getLengthPeriodOfRegistration(metadata: Metadata): string {
+        if (metadata.end_registration_timestamp != undefined) {
+            console.log(metadata.end_registration_timestamp);
+            let initDate = new Date(metadata.timestamp);
+            let endDate = new Date(metadata.end_registration_timestamp);
             let diffMs = endDate.getTime() - initDate.getTime();
             const secs = Math.floor(Math.abs(diffMs) / 1000);
             const mins = Math.floor(secs / 60);
@@ -97,4 +99,12 @@ export class HomeComponent implements OnInit {
             return "non disponibile";
         }
     }
+}
+
+function compareTimestampTag(a: Metadata, b:Metadata) {
+    if (a.timestamp < b.timestamp)
+        return 1;
+    if (a.timestamp > b.timestamp)
+        return -1;
+    return 0;
 }

@@ -25,6 +25,9 @@ import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {CardTeamComponent} from './components/card-team/card-team.component';
 import {MetadataFormComponent} from './components/metadata-form/metadata-form.component';
 import {InfoModalComponent} from './components/modals/info-modal/info-modal.component';
+import { PlayersListComponent } from './components/players-list/players-list.component';
+import { TeamsListComponent } from './components/teams-list/teams-list.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
     declarations: [
@@ -41,6 +44,8 @@ import {InfoModalComponent} from './components/modals/info-modal/info-modal.comp
         CardTeamComponent,
         MetadataFormComponent,
         InfoModalComponent,
+        PlayersListComponent,
+        TeamsListComponent,
     ],
     imports: [
         BrowserModule,
@@ -56,7 +61,8 @@ import {InfoModalComponent} from './components/modals/info-modal/info-modal.comp
         AlertModule,
         CollapseModule,
         NgxSelectModule,
-        NgxSliderModule
+        NgxSliderModule,
+        MatSelectModule
     ],
     providers: [],
     bootstrap: [AppComponent],
